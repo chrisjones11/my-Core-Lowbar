@@ -38,6 +38,21 @@ _.last = (list, n) => {
   return list.slice(list.length-n);
 };
 
+/////////////////////each/////////////////////////////////////////////
+
+_.each = function(list, fn) {
+  if (Array.isArray(list)) {
+    for (var i = 0; i < list.length; i++) {
+      fn(list[i], i, list);
+    }
+  }
+  else if (typeof list === 'object') {
+    for (var prop in list) {
+      fn(list[prop], prop, list);
+    }
+  }
+};
+
 
 
 module.exports = _;

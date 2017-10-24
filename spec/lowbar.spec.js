@@ -1,6 +1,6 @@
 const path = require('path');
 const expect = require('chai').expect;
-// const sinon = require('sinon');
+const sinon = require('sinon');
 
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
@@ -116,3 +116,42 @@ describe('#last', function () {
     expect(_.last('hello','s')).to.eql(['h','e','l','l','o']);
   });
 });
+
+///////////////////////////test each//////////////////////////////////////////////
+
+describe('#each', function () {
+  it('is a function', function () {
+    expect(_.each).to.be.a('function');
+  });
+
+  it('when first arg is an Array return true if spy callCount is equal to expected', function() {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each([1,2,3,4,5], spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function() {
+    const spy = sinon.spy();
+    let result = true;
+    _.each([1,2,3,4,5], spy);      
+    expect(spy.firstCall.calledWithExactly(1,0,[1,2,3,4,5])).to.equal(result);
+    expect(spy.lastCall.calledWithExactly(5,4,[1,2,3,4,5])).to.equal(result);
+  });
+
+  it('when first arg is an object return true if spy callCount is equal to expected', function() {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each({a : 1, b : 2, c : 3, d : 4, e : 5}, spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function() {
+    const spy = sinon.spy();
+    let result = true;
+    _.each({a : 1, b : 2, c : 3, d : 4, e : 5}, spy);        
+    expect(spy.firstCall.calledWithExactly(1,'a' ,{a : 1, b : 2, c : 3, d : 4, e : 5})).to.equal(result);
+    expect(spy.lastCall.calledWithExactly(5, 'e',{a : 1, b : 2, c : 3, d : 4, e : 5})).to.equal(result);
+  });
+});
+  
