@@ -74,5 +74,16 @@ _.filter = function (list, fn) {
 };
 
 /////////////////////reject/////////////////////////////////////////////
-// complete opposite of filter
+
+_.reject = function (list, fn) {
+  if (!fn) fn = _.identity;
+  var newArr = [];
+  _.each(list, function(value, indexorkey, list) {
+    if (!fn(value, indexorkey,list)) newArr.push(value);
+  });
+  return newArr;
+};
+
+
+
 module.exports = _;
