@@ -26,6 +26,17 @@ _.first = (list, n) => {
   return list.slice(0, n);
 };
 
+/////////////////////Last/////////////////////////////////////////////
+
+_.last = (list, n) => {
+  if (Array.isArray(list) && n === undefined || typeof (list) === 'string' && n === undefined) return [list[list.length-1]];
+  if (!Array.isArray(list) && typeof(list) !== 'string' && n === undefined) return undefined;
+  if (!Array.isArray(list) && typeof(list) !== 'string' && n !== undefined) return [];
+  if (Array.isArray(list) && typeof(n) !== 'number'&& typeof(n) !== 'boolean') return list;
+  if (typeof(list) === 'string' && typeof(n) !== 'number' && typeof(n) !== 'boolean') return list.split('');
+  if (typeof(list) === 'string') return list.split('').slice(list.length-n);
+  return list.slice(list.length-n);
+};
 
 
 

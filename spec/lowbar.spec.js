@@ -80,4 +80,39 @@ describe('#first', function () {
   });
 });
 
+///////////////////////////test last//////////////////////////////////////////////
 
+describe('#last', function () {
+  it('is a function', function () {
+    expect(_.last).to.be.a('function');
+  });
+
+  it('if first arg is array or string and second arg is undefined return last element.', () => {
+    expect(_.last([1, 2, 3, 4, 5])).to.eql([5]);
+    expect(_.last('hello')).to.eql(['o']);
+  });
+
+  it('if first arg is string or array and second arg equates to a number return that number of elements from end.', () => {
+    expect(_.last([1, 2, 3, 4, 5], 2)).to.eql([4, 5]);
+    expect(_.last(['a', 'b', 'c', 'd', 'e'], 2)).to.eql(['d', 'e']);
+    expect(_.last('hello', true)).to.eql(['o']);
+    expect(_.last('hello', false)).to.eql([]);
+  });
+
+  it('return undefined if first arg is not string or array and second arg is undefined', () => {
+    expect(_.last(1)).to.equal(undefined);
+    expect(_.last(true)).to.equal(undefined);
+    expect(_.last({ 1: 'a', 2: 'b' })).to.equal(undefined);
+  });
+
+  it('return empty array if first arg is not string or array and second arg is not undefined .', () => {
+    expect(_.last(1,1)).to.eql([]);
+    expect(_.last(true,false)).to.eql([]);
+    expect(_.last({ 1: 'a', 2: 'b' },2)).to.eql([]);
+  });
+
+  it('if first arg is string or array and second arg does not equate to a number return whole of array.', () => {
+    expect(_.last([1, 2, 3, 4, 5], 's')).to.eql([1, 2, 3, 4, 5]);
+    expect(_.last('hello','s')).to.eql(['h','e','l','l','o']);
+  });
+});
