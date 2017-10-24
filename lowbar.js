@@ -53,6 +53,35 @@ _.each = function(list, fn) {
   }
 };
 
+///////////////////indexOf////////////////////////////////////////////
+/// ****Still need to implement isSorted part of this function****////
 
+_.indexOf = function (arr, val, start = 0) {
+  for (var i = start; i < arr.length; i++) {
+    if (val === arr[i]) return i;
+  } return -1;
+};
 
+/////////////////////filter/////////////////////////////////////////////
+
+_.filter = function (list, fn) {
+  if (!fn) fn = _.identity;
+
+  var newArr = [];
+  
+  if (Array.isArray(list)) {  
+    for (var i = 0; i < list.length; i++) {
+      if (fn(list[i])) newArr.push(list[i]);
+    }
+  }
+  else if (list instanceof Object) {
+    for (var prop in list) {
+      if (fn(list[prop])) newArr.push(list[prop]);
+    }
+  }
+  return newArr;
+};
+
+/////////////////////reject/////////////////////////////////////////////
+// complete opposite of filter
 module.exports = _;

@@ -155,3 +155,70 @@ describe('#each', function () {
   });
 });
   
+///////////////////////////test indexOf//////////////////////////////////////////////
+  
+describe('#indexOf', function(){
+  it('is a function', function() {
+    expect(_.indexOf).to.be.a('function');
+  });
+
+  it('returns index of single element array', function() {
+    expect(_.indexOf([1],1)).to.equal(0);
+  });
+    
+  it('returns -1 if value not present', function() {
+    expect(_.indexOf([2,4,6],5)).to.equal(-1);
+  });
+
+  it('returns index of multi element array', function() {
+    expect(_.indexOf([2,4,6],4)).to.equal(1);
+  });
+
+  it('returns index positon of element with multiple of that element in array with start position given', function() {
+    expect(_.indexOf([2,3,6,7,4,6,6,4],4,3)).to.equal(4);
+    expect(_.indexOf([2,4,6,7,4,6,6,4],4,3)).to.equal(4);
+  });
+});
+
+///////////////////////////test filter//////////////////////////////////////////////
+
+describe.only('#filter', function() {
+  it('is a function', function() {
+    expect(_.filter).to.be.a('function');
+  });
+
+  it('returns an empty array if array or object is not passed in', function() {
+    expect(_.filter('hello world')).to.eql([]);
+    expect(_.filter(12345)).to.eql([]);
+    expect(_.filter(true)).to.eql([]);
+  });
+
+  it('returns a new array with all truthy values if no second argument', function () {
+    
+    expect(_.filter([1,2,3,4,false])).to.eql([1,2,3,4]);
+    expect(_.filter({'a':1,'b':2,'c':true,'d':false})).to.eql([1,2,true]);
+    expect(_.filter({'a':1,'b':2,'c':'','d':false})).to.eql([1,2]);
+    expect(_.filter({'a':1,'b':2,'c':'hello','d':0})).to.eql([1,2,'hello']);
+  });
+
+  it('returns a new array with all items divisible by 2 when passed and object or an array', function () {
+    const divide = (num) => {
+      if (num % 2 === 0) return true;
+    };
+    expect(_.filter([1,2,3,4,5,6,7,8],divide)).to.eql([2,4,6,8]);
+    expect(_.filter({'a':1,'b':2,'c':3,'d':4},divide)).to.eql([2,4]);
+  });
+
+  it('returns a new array with all items that pass test', function () {
+    const dotrue = () => true;
+    expect(_.filter([1,2,3,4,5,6,7,8],dotrue)).to.eql([1,2,3,4,5,6,7,8]);
+  });
+
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function() {
+    const spy = sinon.spy();
+    let result = true;
+    _.each([1,2,3,4,5], spy);      
+    expect(spy.firstCall.calledWithExactly(1,0,[1,2,3,4,5])).to.equal(result);
+    expect(spy.lastCall.calledWithExactly(5,4,[1,2,3,4,5])).to.equal(result);
+  });
+});
