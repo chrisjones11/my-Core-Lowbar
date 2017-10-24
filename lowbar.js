@@ -66,19 +66,10 @@ _.indexOf = function (arr, val, start = 0) {
 
 _.filter = function (list, fn) {
   if (!fn) fn = _.identity;
-
   var newArr = [];
-  
-  if (Array.isArray(list)) {  
-    for (var i = 0; i < list.length; i++) {
-      if (fn(list[i])) newArr.push(list[i]);
-    }
-  }
-  else if (list instanceof Object) {
-    for (var prop in list) {
-      if (fn(list[prop])) newArr.push(list[prop]);
-    }
-  }
+  _.each(list, function(value, indexorkey, list) {
+    if (fn(value, indexorkey,list)) newArr.push(value);
+  });
   return newArr;
 };
 
