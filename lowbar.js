@@ -101,30 +101,26 @@ _.uniq = function (input) {
 _.map = function (list, iteratee) {
   let newArray = [];
   let nestedArray = [];
+  if (typeof(list) === 'string') list = list.split('');
 
-  if (Array.isArray(list)) {
+
+  if (typeof(list) === 'boolean' || typeof(list) === 'number') return [];
+  if (Array.isArray(list) || list instanceof Object ){
     _.each(list, (element) => {
       if (Array.isArray(element)) {
-
         for (var i = 0; i < element.length; i++) {
           nestedArray.push(iteratee(element[i]));
         }
         newArray.push(nestedArray);
         nestedArray = [];
       }
-
       if (!Array.isArray(element)) {
         newArray.push(iteratee(element));
       }
     });
   }
 
-  // for objects
-  if (typeof list === 'object' && !Array.isArray(list)) {
-    for (var key in list) {
-      newArray.push(iteratee(list[key]));
-    }
-  }
+
   return newArray;
 };
 

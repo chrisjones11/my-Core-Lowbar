@@ -302,6 +302,10 @@ describe('#map', () => {
     expect(_.map(undefined)).to.eql([]);
   });
 
+  // it('Produces a new array of values by mapping each value in list through a transformation function when passed with no second argument (iteratee)', () => {
+  //   expect(_.map([1, 2, 3])).to.eql([1, 2, 3]);
+  // });
+
   it('Produces a new array of values by mapping each value in list through a transformation function (iteratee)', () => {
     expect(_.map([1, 2, 3], (num) => num * 3)).to.eql([3, 6, 9]);
   });
@@ -312,5 +316,9 @@ describe('#map', () => {
 
   it('if it\'s and objecct, it returns an array with the resulted values', () => {
     expect(_.map({ one: 1, two: 2, three: 3 }, (num) => num * 3)).to.eql([3, 6, 9]);
+  });
+
+  it('if it\'s string, it returns an array with the resulted values', () => {
+    expect(_.map('hello', (num) => num )).to.eql(['h','e','l','l','o']);
   });
 });
