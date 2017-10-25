@@ -287,5 +287,30 @@ describe('#uniq', () => {
   it('returns an array with only 1st occurence of each value passed a string', () => {
     expect(_.uniq('hello')).to.eql(['h','e','l','o']);
   });
+});
 
+///////////////////////////test map//////////////////////////////////////////////
+
+describe('#map', () => {
+  it('is a function', () => {
+    expect(_.map).to.be.a('function');
+  });
+
+  it('return an empty array if the argument is not an array', () => {
+    expect(_.map(5)).to.eql([]);
+    expect(_.map(true)).to.eql([]);
+    expect(_.map(undefined)).to.eql([]);
+  });
+
+  it('Produces a new array of values by mapping each value in list through a transformation function (iteratee)', () => {
+    expect(_.map([1, 2, 3], (num) => num * 3)).to.eql([3, 6, 9]);
+  });
+
+  it('works for nested arrays', () => {
+    expect(_.map([[1, 2, 3], [4, 5, 6]], (num) => num * 3)).to.eql([[3, 6, 9], [12, 15, 18]]);
+  });
+
+  it('if it\'s and objecct, it returns an array with the resulted values', () => {
+    expect(_.map({ one: 1, two: 2, three: 3 }, (num) => num * 3)).to.eql([3, 6, 9]);
+  });
 });

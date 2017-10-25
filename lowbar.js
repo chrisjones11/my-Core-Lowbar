@@ -96,4 +96,36 @@ _.uniq = function (input) {
   return uniqueArray;
 };
 
+/////////////////////map//////////////////////////////////////////////
+
+_.map = function (list, iteratee) {
+  let newArray = [];
+  let nestedArray = [];
+
+  if (Array.isArray(list)) {
+    _.each(list, (element) => {
+      if (Array.isArray(element)) {
+
+        for (var i = 0; i < element.length; i++) {
+          nestedArray.push(iteratee(element[i]));
+        }
+        newArray.push(nestedArray);
+        nestedArray = [];
+      }
+
+      if (!Array.isArray(element)) {
+        newArray.push(iteratee(element));
+      }
+    });
+  }
+
+  // for objects
+  if (typeof list === 'object' && !Array.isArray(list)) {
+    for (var key in list) {
+      newArray.push(iteratee(list[key]));
+    }
+  }
+  return newArray;
+};
+
 module.exports = _;
