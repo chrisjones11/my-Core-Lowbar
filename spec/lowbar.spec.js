@@ -225,7 +225,7 @@ describe('#reject', function() {
 
 ///////////////////////////test reject//////////////////////////////////////////////
 
-describe.only('#reject', function() {
+describe('#reject', function() {
   it('is a function', function() {
     expect(_.reject).to.be.a('function');
   });
@@ -266,3 +266,26 @@ describe.only('#reject', function() {
   });
 });
 
+///////////////////////////test uniq//////////////////////////////////////////////
+
+describe('#uniq', () => {
+  it('is a function', () => {
+    expect(_.uniq).to.be.a('function');
+  });
+
+  it('returns an empty array for invalid arguments', () => {
+    expect(_.uniq({})).to.eql([]);
+    expect(_.uniq(4)).to.eql([]);
+  });
+
+  it('returns an array with only 1st occurence of each value when passed an array', () => {
+    expect(_.uniq([1, 2, 2, 3, 3, 1, 4])).to.eql([1, 2, 3, 4]);
+    expect(_.uniq([1, 2, '2', 3, 3, '2', 1, 4])).to.eql([1, 2, '2', 3, 4]);
+    expect(_.uniq([1, 2, [2, 3], 3, 1, 4])).to.eql([1, 2, [2, 3], 3, 4]);
+  });
+  
+  it('returns an array with only 1st occurence of each value passed a string', () => {
+    expect(_.uniq('hello')).to.eql(['h','e','l','o']);
+  });
+
+});

@@ -84,6 +84,16 @@ _.reject = function (list, fn) {
   return newArr;
 };
 
+/////////////////////uniq//////////////////////////////////////////////
 
+_.uniq = function (input) {
+  if (!Array.isArray(input) && typeof(input) !== 'string' ) return [];
+  let uniqueArray = [];
+  for (var i = 0; i < input.length; i++) {
+    if (!uniqueArray.includes(input[i]))
+      uniqueArray.push(input[i]);
+  }
+  return uniqueArray;
+};
 
 module.exports = _;
