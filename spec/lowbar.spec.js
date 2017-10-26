@@ -366,3 +366,38 @@ describe('#contains', () => {
 
 ///////////////////////////test pluck//////////////////////////////////////////////
 
+describe('#pluck', () => {
+  
+  it('is a function', () => {
+    expect(_.pluck).to.be.a('function');
+  });
+  
+  it('is returns empty array if first argument is a number or boolean', () => {
+    expect(_.pluck(true, 'a')).to.eql([]);
+    expect(_.pluck(59, 'a')).to.eql([]);
+  });
+
+  it('is returns array of values where the second argument matches objects keys', () => {
+    var input = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'chris', age: 60}];
+    expect(_.pluck(input, 'name')).to.eql(['moe', 'larry', 'chris']);
+  });
+
+  it('is returns array of values where the second argument matches arrays or string index', () => {
+    var input = [[1,2,3], [1,2,3], [1,2,3]];
+    expect(_.pluck(input, 0)).to.eql([1,1,1]);
+    expect(_.pluck(input, 2)).to.eql([3,3,3]);
+    expect(_.pluck('hello', 0)).to.eql(['h', 'e', 'l','l','o']);
+  });
+
+  it('if second arg doesnt match a value in the input push undefined', () => {
+    var input = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {age: 60}];
+    expect(_.pluck(input, 'name')).to.eql(['moe', 'larry', undefined]);
+    expect(_.pluck('hello', 0)).to.eql(['h', 'e', 'l','l','o']);
+  });
+
+  it('if second arg doesnt match a values key or index in the input push undefined', () => {
+    expect(_.pluck('hello', 'h')).to.eql([undefined, undefined, undefined, undefined, undefined]);
+  });
+});
+
+///////////////////////////test reduce//////////////////////////////////////////////

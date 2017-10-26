@@ -9,7 +9,7 @@ _.identity = arg => arg;
 //////////////////////values///////////////////////////////////////////
 
 _.values = (list) => {
-  if (typeof (list) !== 'object') return [];
+  if (!(list instanceof Object)) return [];
   if (Array.isArray(list)) return list;
   let newArray = [];
   for (let key in list) newArray.push(list[key]);
@@ -46,7 +46,7 @@ _.each = (list, fn) => {
       fn(list[i], i, list);
     }
   }
-  else if (typeof list === 'object') {
+  else if (list instanceof Object) {
     for (var prop in list) {
       fn(list[prop], prop, list);
     }
@@ -126,7 +126,7 @@ _.map = (list, iteratee) => {
 
 ///////////////// contains////////////////////////////////////////////
 
-_.contains = function (input, value, fromIndex) {
+_.contains = (input, value, fromIndex) => {
   let values = [];
   if (!Array.isArray(input)) {
     _.each(input, (val) => {
@@ -139,7 +139,15 @@ _.contains = function (input, value, fromIndex) {
   return values.indexOf(value, fromIndex) > -1;
 };
   
+///////////////// pluck////////////////////////////////////////////
 
-
+_.pluck = (input, value) => {
+  let arr = [];
+  if (typeof(input) === 'number' || typeof(input) === 'boolean') return [];
+  _.each(input, (val) => {
+    arr.push(val[value]);
+  });
+  return arr;
+};
 
 module.exports = _;
