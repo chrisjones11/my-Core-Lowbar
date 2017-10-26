@@ -182,13 +182,12 @@ describe('#indexOf', function(){
 
 ///////////////////////////test filter//////////////////////////////////////////////
 
-describe('#reject', function() {
+describe('#filter', function() {
   it('is a function', function() {
     expect(_.reject).to.be.a('function');
   });
 
   it('returns an empty array if array or object is not passed in', function() {
-    expect(_.filter('hello world')).to.eql([]);
     expect(_.filter(12345)).to.eql([]);
     expect(_.filter(true)).to.eql([]);
   });
@@ -231,7 +230,6 @@ describe('#reject', function() {
   });
 
   it('returns an empty array if array or object is not passed in', function() {
-    expect(_.reject('hello world')).to.eql([]);
     expect(_.reject(12345)).to.eql([]);
     expect(_.reject(true)).to.eql([]);
   });
@@ -302,10 +300,6 @@ describe('#map', () => {
     expect(_.map(undefined)).to.eql([]);
   });
 
-  // it('Produces a new array of values by mapping each value in list through a transformation function when passed with no second argument (iteratee)', () => {
-  //   expect(_.map([1, 2, 3])).to.eql([1, 2, 3]);
-  // });
-
   it('Produces a new array of values by mapping each value in list through a transformation function (iteratee)', () => {
     expect(_.map([1, 2, 3], (num) => num * 3)).to.eql([3, 6, 9]);
   });
@@ -322,3 +316,53 @@ describe('#map', () => {
     expect(_.map('hello', (num) => num )).to.eql(['h','e','l','l','o']);
   });
 });
+
+///////////////////////////test contains//////////////////////////////////////////////
+
+describe('#contains', () => {
+
+  it('is a function', () => {
+    expect(_.contains).to.be.a('function');
+  });
+
+  it('is return a boolean', () => {
+    expect(_.contains([1,2],2)).to.be.a('boolean');
+  });
+
+  it('returns true if array contains second argument', () => {
+    expect(_.contains([1,2,3],2)).to.be.true;
+  });
+
+  it('returns false if array doesnt contain second argument', () => {
+    expect(_.contains([1,2,3],6)).to.be.false;
+  });
+
+  it('searches for the value starting from the position of the third argument', () => {
+    expect(_.contains([1,2,3,4,5],1,1)).to.be.false;
+    expect(_.contains([1,2,3,4,5,1],1,1)).to.be.true;
+  });
+
+  it('returns true if object contains second argument', () => {
+    expect(_.contains({a:1,b:2,c:3},3)).to.be.true;
+  });
+
+  it('returns false if object doesnt contain second argument', () => {
+    expect(_.contains({a:1,b:2,c:3},6)).to.be.false;
+  });
+
+  it('searches for the value starting from the position of the third argument with an object', () => {
+    expect(_.contains({a:1,b:2,c:3,d:4},1,1)).to.be.false;
+    expect(_.contains({a:1,b:2,c:3,d:1},1,1)).to.be.true;
+  });
+
+  it('returns true if string contains second argument', () => {
+    expect(_.contains('hello','e')).to.be.true;
+  });
+
+  it('returns false if string doesnt contain second argument', () => {
+    expect(_.contains('hello','p')).to.be.false;
+  });
+});
+
+///////////////////////////test pluck//////////////////////////////////////////////
+

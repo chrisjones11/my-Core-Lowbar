@@ -40,8 +40,8 @@ _.last = (list, n) => {
 
 /////////////////////each/////////////////////////////////////////////
 
-_.each = function(list, fn) {
-  if (Array.isArray(list)) {
+_.each = (list, fn) => {
+  if (Array.isArray(list) || typeof(list) === 'string') {
     for (var i = 0; i < list.length; i++) {
       fn(list[i], i, list);
     }
@@ -56,7 +56,7 @@ _.each = function(list, fn) {
 ///////////////////indexOf////////////////////////////////////////////
 /// ****Still need to implement isSorted part of this function****////
 
-_.indexOf = function (arr, val, start = 0) {
+_.indexOf = (arr, val, start = 0) => {
   for (var i = start; i < arr.length; i++) {
     if (val === arr[i]) return i;
   } return -1;
@@ -64,7 +64,7 @@ _.indexOf = function (arr, val, start = 0) {
 
 /////////////////////filter/////////////////////////////////////////////
 
-_.filter = function (list, fn) {
+_.filter = (list, fn) => {
   if (!fn) fn = _.identity;
   var newArr = [];
   _.each(list, function(value, indexorkey, list) {
@@ -75,7 +75,7 @@ _.filter = function (list, fn) {
 
 /////////////////////reject/////////////////////////////////////////////
 
-_.reject = function (list, fn) {
+_.reject = (list, fn) => {
   if (!fn) fn = _.identity;
   var newArr = [];
   _.each(list, function(value, indexorkey, list) {
@@ -86,7 +86,7 @@ _.reject = function (list, fn) {
 
 /////////////////////uniq//////////////////////////////////////////////
 
-_.uniq = function (input) {
+_.uniq = (input) => {
   if (!Array.isArray(input) && typeof(input) !== 'string' ) return [];
   let uniqueArray = [];
   for (var i = 0; i < input.length; i++) {
@@ -98,7 +98,7 @@ _.uniq = function (input) {
 
 /////////////////////map//////////////////////////////////////////////
 
-_.map = function (list, iteratee) {
+_.map = (list, iteratee) => {
   let newArray = [];
   let nestedArray = [];
   if (typeof(list) === 'string') list = list.split('');
@@ -123,5 +123,23 @@ _.map = function (list, iteratee) {
 
   return newArray;
 };
+
+///////////////// contains////////////////////////////////////////////
+
+_.contains = function (input, value, fromIndex) {
+  let values = [];
+  if (!Array.isArray(input)) {
+    _.each(input, (val) => {
+      values.push(val);
+    });
+  } 
+  else {
+    values = input;
+  }
+  return values.indexOf(value, fromIndex) > -1;
+};
+  
+
+
 
 module.exports = _;
