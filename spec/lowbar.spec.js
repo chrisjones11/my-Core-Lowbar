@@ -411,3 +411,73 @@ describe('#pluck', () => {
 });
 
 ///////////////////////////test reduce//////////////////////////////////////////////
+
+describe('#reduce', () => {
+
+  let sum = (acc, item) => acc + item;
+
+  it('is a function', () => {
+    expect(_.reduce).to.be.a('function');
+  });
+  
+  it('returns correct reduced value on an array', () => {
+    expect(_.reduce([1,2,3], sum, 0)).to.equal(6);
+    expect(_.reduce([1,2,3], sum, 2)).to.equal(8);
+  });
+
+  it('returns correct reduced value on an object', () => {
+    expect(_.reduce({a:1,b:2,c:3}, sum, 0)).to.equal(6);
+    expect(_.reduce({a:1,b:2,c:3}, sum, 2)).to.equal(8);
+  });
+
+  it('returns correct reduced value on an string', () => {
+    let addh = (acc, item) => {
+      return acc + 'h' + item;
+    };
+    expect(_.reduce('abcd', addh)).to.equal('ahbhchd');
+  });
+
+  it('uses the first element of the array as the accumulator if one isnt passed', () => {
+    expect(_.reduce([1,2,3], sum)).to.equal(6);
+  });
+
+  it('uses the first element of the object as the accumulator if one isnt passed ', () => {
+    expect(_.reduce({a:1,b:2,c:3}, sum)).to.equal(6);
+  });
+
+  it('works if an array is passed as a accumulator ', () => {
+    let add1 = (acc, item) => {
+      acc.push(item+1);
+      return acc;
+    };
+    expect(_.reduce([1,2,3,4], add1, [])).to.eql([2,3,4,5]);
+  });
+
+  it('returns new istance of array so array passed in is untouched ', () => {
+    let list =[1,2,3];
+    _.reduce(list, sum);
+    expect(list).to.eql([1,2,3]);
+  });
+
+  it('returns undefined if empty array is passed as first argument', () => {
+    expect(_.reduce([], sum)).to.equal(undefined);
+  });
+
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', ()  => {
+    const spy = sinon.spy();
+    let result = true;
+    _.reduce([1,2,3,4,5], spy);      
+    expect(spy.firstCall.calledWithExactly(1,2,1,[1,2,3,4,5])).to.equal(result);
+   
+  });
+
+  it('when first arg is an Array return true if spy callCount is equal to expected', ()  => {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each([1,2,3,4,5], spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+
+
+});

@@ -9,7 +9,8 @@ _.identity = arg => arg;
 //////////////////////values///////////////////////////////////////////
 
 _.values = (list) => {
-  if (!(list instanceof Object)) return [];
+  // if (typeof(list) === 'string') return list.split('');
+  if (!(list instanceof Object )) return [];
   if (Array.isArray(list)) return list;
   let newArray = [];
   for (let key in list) newArray.push(list[key]);
@@ -54,14 +55,6 @@ _.each = (list, fn) => {
 };
 
 ///////////////////indexOf////////////////////////////////////////////
-/// ****Still need to implement isSorted part of this function****////
-
-// _.indexOf = (arr, val, start = 0) => {
-//   for (var i = start; i < arr.length; i++) {
-//     if (val === arr[i]) return i;
-//   } return -1;
-// };
-
 
 _.indexOf = function (array, value, isSorted) {
 
@@ -174,6 +167,30 @@ _.pluck = (input, value) => {
     arr.push(val[value]);
   });
   return arr;
+};
+
+///////////////// reduce////////////////////////////////////////////
+
+_.reduce = (list, iteratee, acc) => {
+  let arr;
+  let startIndex = 0;
+  if (list instanceof Object){
+    arr = _.values(list);
+  }
+  
+  if (typeof(list) === 'string'){
+    arr = list.split('');
+  }
+
+  if (acc === undefined) {
+    acc = arr[0];
+    startIndex = 1;
+  }
+  
+  for (let i = startIndex ; i < arr.length; i++){
+    acc = iteratee(acc, arr[i], i, list);
+  }
+  return acc;
 };
 
 module.exports = _;
