@@ -56,7 +56,7 @@ _.each = (list, fn) => {
 
 ///////////////////indexOf////////////////////////////////////////////
 
-_.indexOf = function (array, value, isSorted) {
+_.indexOf = (array, value, isSorted) => {
 
   if (typeof(isSorted) === 'number') {
     for (let i = isSorted; i < array.length; i++) {
@@ -191,6 +191,19 @@ _.reduce = (list, iteratee, acc) => {
     acc = iteratee(acc, arr[i], i, list);
   }
   return acc;
+};
+
+///////////////// every////////////////////////////////////////////
+
+_.every = (list, predicate) => {
+  let arr = [];
+  for (let i = 0; i < list.length; i++){
+    if(predicate(list[i]) === true){
+      arr.push(list[i]);
+    }
+  }
+  if (arr.length === list.length) return true;
+  else return false;
 };
 
 module.exports = _;

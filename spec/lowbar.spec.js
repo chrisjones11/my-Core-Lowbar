@@ -481,3 +481,23 @@ describe('#reduce', () => {
 
 
 });
+
+///////////////////////////test every//////////////////////////////////////////////
+
+describe.only('#every', () => {
+
+  let pred = (item) => {
+    if(item % 2 === 0) return true;
+  };
+   
+  it('is a function', () => {
+    expect(_.every);
+  });
+
+  it('returns true if every element in the list ', () => {
+    expect(_.every([2,4,6],pred)).to.be.true;
+    expect(_.every([2,3,6],pred)).to.be.false;
+  });
+
+});
+    
