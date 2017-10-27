@@ -7,7 +7,7 @@ const _ = require(path.join(__dirname, '..', './lowbar.js'));
 describe('_', function () {
   'use strict';
 
-  it('is an object', function () {
+  it('is an object', () => {
     expect(_).to.be.an('object');
   });
 });
@@ -15,7 +15,7 @@ describe('_', function () {
 ///////////////////////////test identity//////////////////////////////////////////////
 
 describe('#identity', function () {
-  it('is a function', function () {
+  it('is a function', () => {
     expect(_.identity).to.be.a('function');
   });
   it('is returns a argument exacty how it is passed', () => {
@@ -31,7 +31,7 @@ describe('#identity', function () {
 ///////////////////////////test values//////////////////////////////////////////////
 
 describe('#values', function () {
-  it('is a function', function () {
+  it('is a function',  () => {
     expect(_.values).to.be.a('function');
   });
   it('Return all of the values of the objects own properties.', () => {
@@ -51,7 +51,7 @@ describe('#values', function () {
 ///////////////////////////test first//////////////////////////////////////////////
 
 describe('#first', function () {
-  it('is a function', function () {
+  it('is a function', () => {
     expect(_.first).to.be.a('function');
   });
 
@@ -83,7 +83,7 @@ describe('#first', function () {
 ///////////////////////////test last//////////////////////////////////////////////
 
 describe('#last', function () {
-  it('is a function', function () {
+  it('is a function',  () => {
     expect(_.last).to.be.a('function');
   });
 
@@ -120,18 +120,18 @@ describe('#last', function () {
 ///////////////////////////test each//////////////////////////////////////////////
 
 describe('#each', function () {
-  it('is a function', function () {
-    expect(_.each).to.be.a('function');
+  it('is a function',  () => {
+    expect(_.each).to.be.a('function'); 
   });
 
-  it('when first arg is an Array return true if spy callCount is equal to expected', function() {
+  it('when first arg is an Array return true if spy callCount is equal to expected', ()  => {
     const spy = sinon.spy();
     let result = 5;
     _.each([1,2,3,4,5], spy);
     expect(spy.callCount).to.equal(result);
   });
 
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function() {
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', ()  => {
     const spy = sinon.spy();
     let result = true;
     _.each([1,2,3,4,5], spy);      
@@ -139,14 +139,14 @@ describe('#each', function () {
     expect(spy.lastCall.calledWithExactly(5,4,[1,2,3,4,5])).to.equal(result);
   });
 
-  it('when first arg is an object return true if spy callCount is equal to expected', function() {
+  it('when first arg is an object return true if spy callCount is equal to expected', () => {
     const spy = sinon.spy();
     let result = 5;
     _.each({a : 1, b : 2, c : 3, d : 4, e : 5}, spy);
     expect(spy.callCount).to.equal(result);
   });
 
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function() {
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', () => {
     const spy = sinon.spy();
     let result = true;
     _.each({a : 1, b : 2, c : 3, d : 4, e : 5}, spy);        
@@ -158,25 +158,35 @@ describe('#each', function () {
 ///////////////////////////test indexOf//////////////////////////////////////////////
   
 describe('#indexOf', function(){
-  it('is a function', function() {
+  it('is a function', () => {
     expect(_.indexOf).to.be.a('function');
   });
 
-  it('returns index of single element array', function() {
+  it('returns index of single element array', () => {
     expect(_.indexOf([1],1)).to.equal(0);
   });
     
-  it('returns -1 if value not present', function() {
+  it('returns -1 if value not present', () => {
     expect(_.indexOf([2,4,6],5)).to.equal(-1);
   });
 
-  it('returns index of multi element array', function() {
+  it('returns index of multi element array', () => {
     expect(_.indexOf([2,4,6],4)).to.equal(1);
   });
 
-  it('returns index positon of element with multiple of that element in array with start position given', function() {
-    expect(_.indexOf([2,3,6,7,4,6,6,4],4,3)).to.equal(4);
-    expect(_.indexOf([2,4,6,7,4,6,6,4],4,3)).to.equal(4);
+  it('returns index positon of element with start position given', () => {
+    expect(_.indexOf([1,2,3,4,5,6,7,8], 6,2 )).to.equal(5);
+    expect(_.indexOf([8,2,3,4,5,6,7,8],8,2)).to.equal(7);
+  });
+
+  it('returns index positon of element with multiple of that element in an unsorted array with start position given', () => {
+    expect(_.indexOf([3,4,3,3,5,6,6,8],4,4)).to.equal(-1);
+    expect(_.indexOf([3,4,3,3,5,6,4,8],4,4)).to.eql(6);
+  });
+
+  it('returns index position of element through a binary search if array is sorted', () => {
+    expect(_.indexOf([1,2,3,4,5,6,7,8], 2,true)).to.equal(1);
+    expect(_.indexOf([1,2,3,4,5,6,7,8],4,true)).to.equal(3);
   });
 });
 

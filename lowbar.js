@@ -56,10 +56,36 @@ _.each = (list, fn) => {
 ///////////////////indexOf////////////////////////////////////////////
 /// ****Still need to implement isSorted part of this function****////
 
-_.indexOf = (arr, val, start = 0) => {
-  for (var i = start; i < arr.length; i++) {
-    if (val === arr[i]) return i;
-  } return -1;
+// _.indexOf = (arr, val, start = 0) => {
+//   for (var i = start; i < arr.length; i++) {
+//     if (val === arr[i]) return i;
+//   } return -1;
+// };
+
+
+_.indexOf = function (array, value, isSorted) {
+
+  if (typeof(isSorted) === 'number') {
+    for (let i = isSorted; i < array.length; i++) {
+      if (array[i] === value) return i;
+    }
+    return -1; 
+  }
+
+  if (isSorted) {
+    let low = 1, high = array.length;
+    while (low <= high) {
+      let mid = Math.floor(low + (high - low) / 2);
+      if (array[mid] === value) return mid;
+      else if (array[mid] < value) low = mid + 1;
+      else high = mid - 1;
+    }
+  }
+  
+  for (let j = 0; j < array.length; j++) {
+    if (array[j] === value) return j;
+  }
+  return -1;
 };
 
 /////////////////////filter/////////////////////////////////////////////
