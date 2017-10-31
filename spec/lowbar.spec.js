@@ -494,10 +494,36 @@ describe.only('#every', () => {
     expect(_.every);
   });
 
-  it('returns true if every element in the list ', () => {
-    expect(_.every([2,4,6],pred)).to.be.true;
-    expect(_.every([2,3,6],pred)).to.be.false;
+  it('returns true if every element in the array, object or string pass the pred test', () => {
+    expect(_.every([2,4,6],pred)).to.be.true;   
+    expect(_.every('246',pred)).to.be.true;    
+    expect(_.every({a:2,b:4,c:6}, pred)).to.be.true;
   });
+  
+  it('returns false if any element in the array, object or string fail the pred test', () => {
+    expect(_.every([2,5,6],pred)).to.be.false;
+    expect(_.every('256',pred)).to.be.false;
+    expect(_.every({a:2,b:5,c:6}, pred)).to.be.false;
+  });
+
+  it('returns true if any second arg is undefined', () => {
+    expect(_.every({a:2,b:4,c:5})).to.be.true;
+    expect(_.every([2,4,6])).to.be.true;
+    expect(_.every('hello')).to.be.true;
+    expect(_.every(true)).to.be.true;
+    expect(_.every(false)).to.be.true;
+    expect(_.every(-1)).to.be.true;
+  });
+
+  it('returns false if second arg is not a function', () => {
+    expect(_.every([2,4,6], {a:2,b:4,c:5})).to.be.false;
+    expect(_.every([2,4,6], [2,4,6])).to.be.false;
+    expect(_.every([2,4,6], 'hello')).to.be.false;
+    expect(_.every([2,4,6], true)).to.be.false;
+    expect(_.every([2,4,6], false)).to.be.false;
+    expect(_.every([2,4,6], -1)).to.be.false;
+  });
+
 
 });
     

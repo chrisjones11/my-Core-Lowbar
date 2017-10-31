@@ -195,15 +195,26 @@ _.reduce = (list, iteratee, acc) => {
 
 ///////////////// every////////////////////////////////////////////
 
-_.every = (list, predicate) => {
+_.every = (list, pred) => {
+  if (pred === undefined) return true;
+  if (!(pred instanceof Function)) return false;
   let arr = [];
-  for (let i = 0; i < list.length; i++){
-    if(predicate(list[i]) === true){
-      arr.push(list[i]);
+  if (typeof (list) === 'string'){
+    for (let i = 0; i < list.length; i++){
+      if(pred(list[i]) !== true){
+        arr.push(list[i]);
+      }
     }
   }
-  if (arr.length === list.length) return true;
-  else return false;
+  if (list instanceof Object){
+    for (let prop in list){
+      if(pred(list[prop]) !== true){
+        arr.push(list[prop]);
+      }
+    }
+  } 
+  if (arr.length >= 1) return false;
+  else return true;
 };
 
 module.exports = _;
