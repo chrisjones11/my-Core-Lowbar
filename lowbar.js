@@ -194,6 +194,7 @@ _.reduce = (list, iteratee, acc) => {
 };
 
 ///////////////// every////////////////////////////////////////////
+///refactor 
 
 _.every = (list, pred) => {
   if (pred === undefined) return true;
@@ -216,5 +217,33 @@ _.every = (list, pred) => {
   if (arr.length >= 1) return false;
   else return true;
 };
+
+///////////////// some////////////////////////////////////////////
+/// refactor code and stop loops as soon as true found
+_.some = (list, pred) => {
+  if (pred === undefined && list.length > 0 || pred === undefined && Object.keys(list).length > 0) return true;
+  if (pred === undefined)return false;
+
+  if (!(pred instanceof Function)) return false;
+  let arr = [];
+  if (typeof (list) === 'string'){
+    for (let i = 0; i < list.length; i++){
+      if(pred(list[i]) === true){
+        arr.push(list[i]);
+      }
+    }
+  }
+  if (list instanceof Object){
+    for (let prop in list){
+      if(pred(list[prop]) === true){
+        arr.push(list[prop]);
+      }
+    }
+  } 
+  if (arr.length >= 1) return true;
+  else return false;
+};
+
+///////////////// extends////////////////////////////////////////////
 
 module.exports = _;

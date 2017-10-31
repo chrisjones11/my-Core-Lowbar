@@ -27,11 +27,10 @@ describe('#identity', function () {
   });
 });
 
-
 ///////////////////////////test values//////////////////////////////////////////////
 
 describe('#values', function () {
-  it('is a function',  () => {
+  it('is a function', () => {
     expect(_.values).to.be.a('function');
   });
   it('Return all of the values of the objects own properties.', () => {
@@ -74,16 +73,16 @@ describe('#first', function () {
   });
 
   it('Return empty array if first arg is not a string or array and second arg is not undefined .', () => {
-    expect(_.first(1,1)).to.eql([]);
-    expect(_.first(true,false)).to.eql([]);
-    expect(_.first({ 1: 'a', 2: 'b' },2)).to.eql([]);
+    expect(_.first(1, 1)).to.eql([]);
+    expect(_.first(true, false)).to.eql([]);
+    expect(_.first({ 1: 'a', 2: 'b' }, 2)).to.eql([]);
   });
 });
 
 ///////////////////////////test last//////////////////////////////////////////////
 
 describe('#last', function () {
-  it('is a function',  () => {
+  it('is a function', () => {
     expect(_.last).to.be.a('function');
   });
 
@@ -106,171 +105,171 @@ describe('#last', function () {
   });
 
   it('return empty array if first arg is not string or array and second arg is not undefined .', () => {
-    expect(_.last(1,1)).to.eql([]);
-    expect(_.last(true,false)).to.eql([]);
-    expect(_.last({ 1: 'a', 2: 'b' },2)).to.eql([]);
+    expect(_.last(1, 1)).to.eql([]);
+    expect(_.last(true, false)).to.eql([]);
+    expect(_.last({ 1: 'a', 2: 'b' }, 2)).to.eql([]);
   });
 
   it('if first arg is string or array and second arg does not equate to a number return whole of array.', () => {
     expect(_.last([1, 2, 3, 4, 5], 's')).to.eql([1, 2, 3, 4, 5]);
-    expect(_.last('hello','s')).to.eql(['h','e','l','l','o']);
+    expect(_.last('hello', 's')).to.eql(['h', 'e', 'l', 'l', 'o']);
   });
 });
 
 ///////////////////////////test each//////////////////////////////////////////////
 
 describe('#each', function () {
-  it('is a function',  () => {
-    expect(_.each).to.be.a('function'); 
+  it('is a function', () => {
+    expect(_.each).to.be.a('function');
   });
 
-  it('when first arg is an Array return true if spy callCount is equal to expected', ()  => {
+  it('when first arg is an Array return true if spy callCount is equal to expected', () => {
     const spy = sinon.spy();
     let result = 5;
-    _.each([1,2,3,4,5], spy);
-    expect(spy.callCount).to.equal(result);
-  });
-
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', ()  => {
-    const spy = sinon.spy();
-    let result = true;
-    _.each([1,2,3,4,5], spy);      
-    expect(spy.firstCall.calledWithExactly(1,0,[1,2,3,4,5])).to.equal(result);
-    expect(spy.lastCall.calledWithExactly(5,4,[1,2,3,4,5])).to.equal(result);
-  });
-
-  it('when first arg is an object return true if spy callCount is equal to expected', () => {
-    const spy = sinon.spy();
-    let result = 5;
-    _.each({a : 1, b : 2, c : 3, d : 4, e : 5}, spy);
+    _.each([1, 2, 3, 4, 5], spy);
     expect(spy.callCount).to.equal(result);
   });
 
   it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', () => {
     const spy = sinon.spy();
     let result = true;
-    _.each({a : 1, b : 2, c : 3, d : 4, e : 5}, spy);        
-    expect(spy.firstCall.calledWithExactly(1,'a' ,{a : 1, b : 2, c : 3, d : 4, e : 5})).to.equal(result);
-    expect(spy.lastCall.calledWithExactly(5, 'e',{a : 1, b : 2, c : 3, d : 4, e : 5})).to.equal(result);
+    _.each([1, 2, 3, 4, 5], spy);
+    expect(spy.firstCall.calledWithExactly(1, 0, [1, 2, 3, 4, 5])).to.equal(result);
+    expect(spy.lastCall.calledWithExactly(5, 4, [1, 2, 3, 4, 5])).to.equal(result);
+  });
+
+  it('when first arg is an object return true if spy callCount is equal to expected', () => {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each({ a: 1, b: 2, c: 3, d: 4, e: 5 }, spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', () => {
+    const spy = sinon.spy();
+    let result = true;
+    _.each({ a: 1, b: 2, c: 3, d: 4, e: 5 }, spy);
+    expect(spy.firstCall.calledWithExactly(1, 'a', { a: 1, b: 2, c: 3, d: 4, e: 5 })).to.equal(result);
+    expect(spy.lastCall.calledWithExactly(5, 'e', { a: 1, b: 2, c: 3, d: 4, e: 5 })).to.equal(result);
   });
 });
-  
+
 ///////////////////////////test indexOf//////////////////////////////////////////////
-  
-describe('#indexOf', function(){
+
+describe('#indexOf', function () {
   it('is a function', () => {
     expect(_.indexOf).to.be.a('function');
   });
 
   it('returns index of single element array', () => {
-    expect(_.indexOf([1],1)).to.equal(0);
+    expect(_.indexOf([1], 1)).to.equal(0);
   });
-    
+
   it('returns -1 if value not present', () => {
-    expect(_.indexOf([2,4,6],5)).to.equal(-1);
+    expect(_.indexOf([2, 4, 6], 5)).to.equal(-1);
   });
 
   it('returns index of multi element array', () => {
-    expect(_.indexOf([2,4,6],4)).to.equal(1);
+    expect(_.indexOf([2, 4, 6], 4)).to.equal(1);
   });
 
   it('returns index positon of element with start position given', () => {
-    expect(_.indexOf([1,2,3,4,5,6,7,8], 6,2 )).to.equal(5);
-    expect(_.indexOf([8,2,3,4,5,6,7,8],8,2)).to.equal(7);
+    expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8], 6, 2)).to.equal(5);
+    expect(_.indexOf([8, 2, 3, 4, 5, 6, 7, 8], 8, 2)).to.equal(7);
   });
 
   it('returns index positon of element with multiple of that element in an unsorted array with start position given', () => {
-    expect(_.indexOf([3,4,3,3,5,6,6,8],4,4)).to.equal(-1);
-    expect(_.indexOf([3,4,3,3,5,6,4,8],4,4)).to.eql(6);
+    expect(_.indexOf([3, 4, 3, 3, 5, 6, 6, 8], 4, 4)).to.equal(-1);
+    expect(_.indexOf([3, 4, 3, 3, 5, 6, 4, 8], 4, 4)).to.eql(6);
   });
 
   it('returns index position of element through a binary search if array is sorted', () => {
-    expect(_.indexOf([1,2,3,4,5,6,7,8], 2,true)).to.equal(1);
-    expect(_.indexOf([1,2,3,4,5,6,7,8],4,true)).to.equal(3);
+    expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8], 2, true)).to.equal(1);
+    expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8], 4, true)).to.equal(3);
   });
 });
 
 ///////////////////////////test filter//////////////////////////////////////////////
 
-describe('#filter', function() {
-  it('is a function', function() {
+describe('#filter', function () {
+  it('is a function', function () {
     expect(_.reject).to.be.a('function');
   });
 
-  it('returns an empty array if array or object is not passed in', function() {
+  it('returns an empty array if array or object is not passed in', function () {
     expect(_.filter(12345)).to.eql([]);
     expect(_.filter(true)).to.eql([]);
   });
 
   it('returns a new array with all truthy values if no second argument', function () {
-    
-    expect(_.filter([1,2,3,4,false])).to.eql([1,2,3,4]);
-    expect(_.filter({'a':1,'b':2,'c':true,'d':false})).to.eql([1,2,true]);
-    expect(_.filter({'a':1,'b':2,'c':'','d':false})).to.eql([1,2]);
-    expect(_.filter({'a':1,'b':2,'c':'hello','d':0})).to.eql([1,2,'hello']);
+
+    expect(_.filter([1, 2, 3, 4, false])).to.eql([1, 2, 3, 4]);
+    expect(_.filter({ 'a': 1, 'b': 2, 'c': true, 'd': false })).to.eql([1, 2, true]);
+    expect(_.filter({ 'a': 1, 'b': 2, 'c': '', 'd': false })).to.eql([1, 2]);
+    expect(_.filter({ 'a': 1, 'b': 2, 'c': 'hello', 'd': 0 })).to.eql([1, 2, 'hello']);
   });
 
   it('returns a new array with all items divisible by 2 when passed and object or an array', function () {
     const divide = (num) => {
       if (num % 2 === 0) return true;
     };
-    expect(_.filter([1,2,3,4,5,6,7,8],divide)).to.eql([2,4,6,8]);
-    expect(_.filter({'a':1,'b':2,'c':3,'d':4},divide)).to.eql([2,4]);
+    expect(_.filter([1, 2, 3, 4, 5, 6, 7, 8], divide)).to.eql([2, 4, 6, 8]);
+    expect(_.filter({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, divide)).to.eql([2, 4]);
   });
 
   it('returns a new array with all items that pass test', function () {
     const dotrue = () => true;
-    expect(_.filter([1,2,3,4,5,6,7,8],dotrue)).to.eql([1,2,3,4,5,6,7,8]);
+    expect(_.filter([1, 2, 3, 4, 5, 6, 7, 8], dotrue)).to.eql([1, 2, 3, 4, 5, 6, 7, 8]);
   });
 
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function() {
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function () {
     const spy = sinon.spy();
     let result = true;
-    _.each([1,2,3,4,5], spy);      
-    expect(spy.firstCall.calledWithExactly(1,0,[1,2,3,4,5])).to.equal(result);
-    expect(spy.lastCall.calledWithExactly(5,4,[1,2,3,4,5])).to.equal(result);
+    _.each([1, 2, 3, 4, 5], spy);
+    expect(spy.firstCall.calledWithExactly(1, 0, [1, 2, 3, 4, 5])).to.equal(result);
+    expect(spy.lastCall.calledWithExactly(5, 4, [1, 2, 3, 4, 5])).to.equal(result);
   });
 });
 
 ///////////////////////////test reject//////////////////////////////////////////////
 
-describe('#reject', function() {
-  it('is a function', function() {
+describe('#reject', function () {
+  it('is a function', function () {
     expect(_.reject).to.be.a('function');
   });
 
-  it('returns an empty array if array or object is not passed in', function() {
+  it('returns an empty array if array or object is not passed in', function () {
     expect(_.reject(12345)).to.eql([]);
     expect(_.reject(true)).to.eql([]);
   });
 
   it('returns a new array with all truthy values if no second argument', function () {
-    
-    expect(_.reject([1,2,3,4,false])).to.eql([false]);
-    expect(_.reject({'a':1,'b':2,'c':true,'d':false})).to.eql([false]);
-    expect(_.reject({'a':1,'b':2,'c':'','d':false})).to.eql(['',false]);
-    expect(_.reject({'a':1,'b':2,'c':'hello','d':0})).to.eql([0]);
+
+    expect(_.reject([1, 2, 3, 4, false])).to.eql([false]);
+    expect(_.reject({ 'a': 1, 'b': 2, 'c': true, 'd': false })).to.eql([false]);
+    expect(_.reject({ 'a': 1, 'b': 2, 'c': '', 'd': false })).to.eql(['', false]);
+    expect(_.reject({ 'a': 1, 'b': 2, 'c': 'hello', 'd': 0 })).to.eql([0]);
   });
 
   it('returns a new array with all items divisible by 2 when passed and object or an array', function () {
     const divide = (num) => {
       if (num % 2 === 0) return true;
     };
-    expect(_.reject([1,2,3,4,5,6,7,8],divide)).to.eql([1,3,5,7]);
-    expect(_.reject({'a':1,'b':2,'c':3,'d':4},divide)).to.eql([1,3]);
+    expect(_.reject([1, 2, 3, 4, 5, 6, 7, 8], divide)).to.eql([1, 3, 5, 7]);
+    expect(_.reject({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, divide)).to.eql([1, 3]);
   });
 
   it('returns a new array with all items that pass test', function () {
     const dotrue = () => true;
-    expect(_.reject([1,2,3,4,5,6,7,8],dotrue)).to.eql([]);
+    expect(_.reject([1, 2, 3, 4, 5, 6, 7, 8], dotrue)).to.eql([]);
   });
 
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function() {
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function () {
     const spy = sinon.spy();
     let result = true;
-    _.each([1,2,3,4,5], spy);      
-    expect(spy.firstCall.calledWithExactly(1,0,[1,2,3,4,5])).to.equal(result);
-    expect(spy.lastCall.calledWithExactly(5,4,[1,2,3,4,5])).to.equal(result);
+    _.each([1, 2, 3, 4, 5], spy);
+    expect(spy.firstCall.calledWithExactly(1, 0, [1, 2, 3, 4, 5])).to.equal(result);
+    expect(spy.lastCall.calledWithExactly(5, 4, [1, 2, 3, 4, 5])).to.equal(result);
   });
 });
 
@@ -291,9 +290,9 @@ describe('#uniq', () => {
     expect(_.uniq([1, 2, '2', 3, 3, '2', 1, 4])).to.eql([1, 2, '2', 3, 4]);
     expect(_.uniq([1, 2, [2, 3], 3, 1, 4])).to.eql([1, 2, [2, 3], 3, 4]);
   });
-  
+
   it('returns an array with only 1st occurence of each value passed a string', () => {
-    expect(_.uniq('hello')).to.eql(['h','e','l','o']);
+    expect(_.uniq('hello')).to.eql(['h', 'e', 'l', 'o']);
   });
 });
 
@@ -323,7 +322,7 @@ describe('#map', () => {
   });
 
   it('if it\'s string, it returns an array with the resulted values', () => {
-    expect(_.map('hello', (num) => num )).to.eql(['h','e','l','l','o']);
+    expect(_.map('hello', (num) => num)).to.eql(['h', 'e', 'l', 'l', 'o']);
   });
 });
 
@@ -336,73 +335,73 @@ describe('#contains', () => {
   });
 
   it('is return a boolean', () => {
-    expect(_.contains([1,2],2)).to.be.a('boolean');
+    expect(_.contains([1, 2], 2)).to.be.a('boolean');
   });
 
   it('returns true if array contains second argument', () => {
-    expect(_.contains([1,2,3],2)).to.be.true;
+    expect(_.contains([1, 2, 3], 2)).to.be.true;
   });
 
   it('returns false if array doesnt contain second argument', () => {
-    expect(_.contains([1,2,3],6)).to.be.false;
+    expect(_.contains([1, 2, 3], 6)).to.be.false;
   });
 
   it('searches for the value starting from the position of the third argument', () => {
-    expect(_.contains([1,2,3,4,5],1,1)).to.be.false;
-    expect(_.contains([1,2,3,4,5,1],1,1)).to.be.true;
+    expect(_.contains([1, 2, 3, 4, 5], 1, 1)).to.be.false;
+    expect(_.contains([1, 2, 3, 4, 5, 1], 1, 1)).to.be.true;
   });
 
   it('returns true if object contains second argument', () => {
-    expect(_.contains({a:1,b:2,c:3},3)).to.be.true;
+    expect(_.contains({ a: 1, b: 2, c: 3 }, 3)).to.be.true;
   });
 
   it('returns false if object doesnt contain second argument', () => {
-    expect(_.contains({a:1,b:2,c:3},6)).to.be.false;
+    expect(_.contains({ a: 1, b: 2, c: 3 }, 6)).to.be.false;
   });
 
   it('searches for the value starting from the position of the third argument with an object', () => {
-    expect(_.contains({a:1,b:2,c:3,d:4},1,1)).to.be.false;
-    expect(_.contains({a:1,b:2,c:3,d:1},1,1)).to.be.true;
+    expect(_.contains({ a: 1, b: 2, c: 3, d: 4 }, 1, 1)).to.be.false;
+    expect(_.contains({ a: 1, b: 2, c: 3, d: 1 }, 1, 1)).to.be.true;
   });
 
   it('returns true if string contains second argument', () => {
-    expect(_.contains('hello','e')).to.be.true;
+    expect(_.contains('hello', 'e')).to.be.true;
   });
 
   it('returns false if string doesnt contain second argument', () => {
-    expect(_.contains('hello','p')).to.be.false;
+    expect(_.contains('hello', 'p')).to.be.false;
   });
 });
 
 ///////////////////////////test pluck//////////////////////////////////////////////
 
 describe('#pluck', () => {
-  
+
   it('is a function', () => {
     expect(_.pluck).to.be.a('function');
   });
-  
+
   it('is returns empty array if first argument is a number or boolean', () => {
     expect(_.pluck(true, 'a')).to.eql([]);
     expect(_.pluck(59, 'a')).to.eql([]);
   });
 
   it('is returns array of values where the second argument matches objects keys', () => {
-    var input = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'chris', age: 60}];
+    var input = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'chris', age: 60 }];
     expect(_.pluck(input, 'name')).to.eql(['moe', 'larry', 'chris']);
   });
 
   it('is returns array of values where the second argument matches arrays or string index', () => {
-    var input = [[1,2,3], [1,2,3], [1,2,3]];
-    expect(_.pluck(input, 0)).to.eql([1,1,1]);
-    expect(_.pluck(input, 2)).to.eql([3,3,3]);
-    expect(_.pluck('hello', 0)).to.eql(['h', 'e', 'l','l','o']);
+    var input = [[1, 2, 3], [1, 2, 3], [1, 2, 3]];
+    expect(_.pluck(input, 0)).to.eql([1, 1, 1]);
+    expect(_.pluck(input, 2)).to.eql([3, 3, 3]);
+    expect(_.pluck('hello', 0)).to.eql(['h', 'e', 'l', 'l', 'o']);
   });
 
   it('if second arg doesnt match a value in the input push undefined', () => {
-    var input = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {age: 60}];
+    var input = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { age: 60 }];
     expect(_.pluck(input, 'name')).to.eql(['moe', 'larry', undefined]);
-    expect(_.pluck('hello', 0)).to.eql(['h', 'e', 'l','l','o']);
+    expect(_.pluck('hello', 0)).to.eql(['h', 'e', 'l', 'l', 'o']);
   });
 
   it('if second arg doesnt match a values key or index in the input push undefined', () => {
@@ -419,15 +418,15 @@ describe('#reduce', () => {
   it('is a function', () => {
     expect(_.reduce).to.be.a('function');
   });
-  
+
   it('returns correct reduced value on an array', () => {
-    expect(_.reduce([1,2,3], sum, 0)).to.equal(6);
-    expect(_.reduce([1,2,3], sum, 2)).to.equal(8);
+    expect(_.reduce([1, 2, 3], sum, 0)).to.equal(6);
+    expect(_.reduce([1, 2, 3], sum, 2)).to.equal(8);
   });
 
   it('returns correct reduced value on an object', () => {
-    expect(_.reduce({a:1,b:2,c:3}, sum, 0)).to.equal(6);
-    expect(_.reduce({a:1,b:2,c:3}, sum, 2)).to.equal(8);
+    expect(_.reduce({ a: 1, b: 2, c: 3 }, sum, 0)).to.equal(6);
+    expect(_.reduce({ a: 1, b: 2, c: 3 }, sum, 2)).to.equal(8);
   });
 
   it('returns correct reduced value on an string', () => {
@@ -438,43 +437,43 @@ describe('#reduce', () => {
   });
 
   it('uses the first element of the array as the accumulator if one isnt passed', () => {
-    expect(_.reduce([1,2,3], sum)).to.equal(6);
+    expect(_.reduce([1, 2, 3], sum)).to.equal(6);
   });
 
   it('uses the first element of the object as the accumulator if one isnt passed ', () => {
-    expect(_.reduce({a:1,b:2,c:3}, sum)).to.equal(6);
+    expect(_.reduce({ a: 1, b: 2, c: 3 }, sum)).to.equal(6);
   });
 
   it('works if an array is passed as a accumulator ', () => {
     let add1 = (acc, item) => {
-      acc.push(item+1);
+      acc.push(item + 1);
       return acc;
     };
-    expect(_.reduce([1,2,3,4], add1, [])).to.eql([2,3,4,5]);
+    expect(_.reduce([1, 2, 3, 4], add1, [])).to.eql([2, 3, 4, 5]);
   });
 
   it('returns new istance of array so array passed in is untouched ', () => {
-    let list =[1,2,3];
+    let list = [1, 2, 3];
     _.reduce(list, sum);
-    expect(list).to.eql([1,2,3]);
+    expect(list).to.eql([1, 2, 3]);
   });
 
   it('returns undefined if empty array is passed as first argument', () => {
     expect(_.reduce([], sum)).to.equal(undefined);
   });
 
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', ()  => {
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', () => {
     const spy = sinon.spy();
     let result = true;
-    _.reduce([1,2,3,4,5], spy);      
-    expect(spy.firstCall.calledWithExactly(1,2,1,[1,2,3,4,5])).to.equal(result);
-   
+    _.reduce([1, 2, 3, 4, 5], spy);
+    expect(spy.firstCall.calledWithExactly(1, 2, 1, [1, 2, 3, 4, 5])).to.equal(result);
+
   });
 
-  it('when first arg is an Array return true if spy callCount is equal to expected', ()  => {
+  it('when first arg is an Array return true if spy callCount is equal to expected', () => {
     const spy = sinon.spy();
     let result = 5;
-    _.each([1,2,3,4,5], spy);
+    _.each([1, 2, 3, 4, 5], spy);
     expect(spy.callCount).to.equal(result);
   });
 
@@ -484,31 +483,31 @@ describe('#reduce', () => {
 
 ///////////////////////////test every//////////////////////////////////////////////
 
-describe.only('#every', () => {
+describe('#every', () => {
 
   let pred = (item) => {
-    if(item % 2 === 0) return true;
+    if (item % 2 === 0) return true;
   };
-   
+
   it('is a function', () => {
     expect(_.every);
   });
 
   it('returns true if every element in the array, object or string pass the pred test', () => {
-    expect(_.every([2,4,6],pred)).to.be.true;   
-    expect(_.every('246',pred)).to.be.true;    
-    expect(_.every({a:2,b:4,c:6}, pred)).to.be.true;
+    expect(_.every([2, 4, 6], pred)).to.be.true;
+    expect(_.every('246', pred)).to.be.true;
+    expect(_.every({ a: 2, b: 4, c: 6 }, pred)).to.be.true;
   });
-  
+
   it('returns false if any element in the array, object or string fail the pred test', () => {
-    expect(_.every([2,5,6],pred)).to.be.false;
-    expect(_.every('256',pred)).to.be.false;
-    expect(_.every({a:2,b:5,c:6}, pred)).to.be.false;
+    expect(_.every([2, 5, 6], pred)).to.be.false;
+    expect(_.every('256', pred)).to.be.false;
+    expect(_.every({ a: 2, b: 5, c: 6 }, pred)).to.be.false;
   });
 
   it('returns true if any second arg is undefined', () => {
-    expect(_.every({a:2,b:4,c:5})).to.be.true;
-    expect(_.every([2,4,6])).to.be.true;
+    expect(_.every({ a: 2, b: 4, c: 5 })).to.be.true;
+    expect(_.every([2, 4, 6])).to.be.true;
     expect(_.every('hello')).to.be.true;
     expect(_.every(true)).to.be.true;
     expect(_.every(false)).to.be.true;
@@ -516,14 +515,107 @@ describe.only('#every', () => {
   });
 
   it('returns false if second arg is not a function', () => {
-    expect(_.every([2,4,6], {a:2,b:4,c:5})).to.be.false;
-    expect(_.every([2,4,6], [2,4,6])).to.be.false;
-    expect(_.every([2,4,6], 'hello')).to.be.false;
-    expect(_.every([2,4,6], true)).to.be.false;
-    expect(_.every([2,4,6], false)).to.be.false;
-    expect(_.every([2,4,6], -1)).to.be.false;
+    expect(_.every([2, 4, 6], { a: 2, b: 4, c: 5 })).to.be.false;
+    expect(_.every([2, 4, 6], [2, 4, 6])).to.be.false;
+    expect(_.every([2, 4, 6], 'hello')).to.be.false;
+    expect(_.every([2, 4, 6], true)).to.be.false;
+    expect(_.every([2, 4, 6], false)).to.be.false;
+    expect(_.every([2, 4, 6], -1)).to.be.false;
+  });
+
+  it('second argument is run once for every value in the array', () => {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each([1, 2, 3, 4, 5], spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+  it('second argument is run once for every value in the object', () => {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each({ a: 2, b: 4, c: 5, d: 6, e: 8 }, spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+  it('second argument is run once for every value in the string', () => {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each('hello', spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+});
+
+///////////////////////////test some//////////////////////////////////////////////
+
+describe('#some', () => {
+
+  let pred = (item) => {
+    if (item % 2 === 0) return true;
+  };
+
+  it('is a function', () => {
+    expect(_.some);
+  });
+
+  it('returns true if some element in the array, object or string pass the pred test', () => {
+    expect(_.some([1, 5, 6], pred)).to.be.true;
+    expect(_.some('136', pred)).to.be.true;
+    expect(_.some({ a: 1, b: 3, c: 6 }, pred)).to.be.true;
+  });
+
+  it('returns false if all elements in the array, object or string fail the pred test', () => {
+    expect(_.some([1, 5, 7], pred)).to.be.false;
+    expect(_.some('135', pred)).to.be.false;
+    expect(_.some({ a: 1, b: 5, c: 7 }, pred)).to.be.false;
+  });
+
+  it('returns false if second arg is not a function', () => {
+    expect(_.some([2, 4, 6], { a: 2, b: 4, c: 5 })).to.be.false;
+    expect(_.some([2, 4, 6], [2, 4, 6])).to.be.false;
+    expect(_.some([2, 4, 6], 'hello')).to.be.false;
+    expect(_.some([2, 4, 6], true)).to.be.false;
+    expect(_.some([2, 4, 6], false)).to.be.false;
+    expect(_.some([2, 4, 6], -1)).to.be.false;
+  });
+
+  it('returns true if second arg is undefined and first argument is a string,array or object with a length of aleast 1', () => {
+    expect(_.some({ a: 2, b: 4, c: 5 })).to.be.true;
+    expect(_.some([2, 4, 6])).to.be.true;
+    expect(_.some('hello')).to.be.true;
+  });
+
+  it('returns false if second arg is undefined and first argument is not a string,array or object with a length of aleast 1', () => {
+    expect(_.some({})).to.be.false;
+    expect(_.some([])).to.be.false;
+    expect(_.some('')).to.be.false;
+    expect(_.some(true)).to.be.false;
+    expect(_.some(false)).to.be.false;
+    expect(_.some(-1)).to.be.false;
   });
 
 
+  it('second argument is run once for every value in the array', () => {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each([1, 2, 3, 4, 5], spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+  it('second argument is run once for every value in the object', () => {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each({ a: 2, b: 4, c: 5, d: 6, e: 8 }, spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
+  it('second argument is run once for every value in the string', () => {
+    const spy = sinon.spy();
+    let result = 5;
+    _.each('hello', spy);
+    expect(spy.callCount).to.equal(result);
+  });
+
 });
-    
+
+///////////////////////////test extends//////////////////////////////////////////////
