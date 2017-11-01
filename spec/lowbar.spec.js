@@ -619,3 +619,71 @@ describe('#some', () => {
 });
 
 ///////////////////////////test extends//////////////////////////////////////////////
+
+describe('_.extend', () => {
+  it('is a function', () => {
+    expect(_.extend).to.be.a('function');
+  });
+
+  it('returns the object that was passed in', () => {
+    let obj = { a: 1, b: 2 };
+    let result = _.extend(obj);
+    expect(result).to.equal(obj);
+  });
+
+  it('adds the values of an object to the first empty object', () => {
+    expect(_.extend({}, { a: 1 })).to.eql({ a: 1 });
+  });
+
+  it('adds the values of an object with more than one key-value pair to the an empty destination object', () => {
+    expect(_.extend({},{ a: 1, b: 2, c: 3 })).to.eql({ a: 1, b: 2, c: 3 });
+  });
+
+  it('adds the values of an object with aleast a key-value pair to the first object with existing key-value pairs', () => {
+    expect(_.extend({ a: 1, b: 2 },{ c: 3 })).to.eql({ a: 1, b: 2, c: 3 });
+    expect(_.extend({ a: 1, b: 2, c: 3 },{ d: 4, e: 2, f: 3 })).to.eql({ a: 1, b: 2, c: 3, d: 4, e: 2, f: 3 });
+  });
+
+
+  it('mutates the destination object', () => {
+    let mutateObj = { a: 1, b: 2 };
+    let obj = { c: 3 };
+    expect(_.extend(mutateObj, obj)).to.eql(mutateObj);
+  });
+
+
+  it('returns the original first arg if it cannot be added to', () => {
+    expect(_.extend('a','b','c')).to.eql('a');
+    expect(_.extend(1,2,3,4)).to.eql(1);
+  });
+
+  it('passes nested array or objects to first arg', () => {
+    let result = _.extend({ a: 1, b: 2 }, { c: [1, 2, 3] });
+    expect(result).to.eql({ a: 1, b: 2, c: [1, 2, 3] });
+    let result1 = _.extend({ a: 1, b: 2 }, { c: { d: 4, e: 5 }  });
+    expect(result1).to.eql({ a: 1, b: 2, c: { d: 4, e: 5 } });
+  });
+
+  it('if first arg is array it gets overriden with it index position', () => {
+    expect(_.extend([1, 2, 3, 4, 5],['a', 'b', 'c'],[9])).to.eql([9, 'b', 'c', 4, 5]);
+    expect(_.extend([1, 2, 3, 4, 5],'hel',[9])).to.eql([9, 'e', 'l', 4, 5]);
+  });
+
+  it('returns the original array if the other args are not arrays or objects or strings', () => {
+    expect(_.extend([1, 2, 3, 4, 5])).to.eql([1, 2, 3, 4, 5]);
+    expect(_.extend([1, 2, 3, 4, 5],true)).to.eql([1, 2, 3, 4, 5]);
+    expect(_.extend([1, 2, 3, 4, 5],123)).to.eql([1, 2, 3, 4, 5]);
+  });
+
+  it('properties will override properties of the same name in previous arguments', () => {
+    expect(_.extend({ a: 1, b: 2, c: 3 },{ a: 7 },{ c: 8, d: 10 })).to.eql({ a: 7, b: 2, c: 8, d: 10 });
+  });
+
+  it('adds the index and value of each array element to an object, if the destination is an object and one source is an array', () => {
+    expect(_.extend({ a: 1 },['a', 'b', 'c'],{ b: 2 })).to.eql({ '0': 'a', '1': 'b', '2': 'c', a: 1, b: 2 });
+  });
+});
+
+/////////////////test defaults//////////////////////////////////////////
+ 
+    
