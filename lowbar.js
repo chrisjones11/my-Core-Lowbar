@@ -245,12 +245,24 @@ _.some = (list, pred) => {
 };
 
 ///////////////// extends////////////////////////////////////////////
-//why does it only work without arrow function
 
 _.extend = function (obj)  {
   _.each(arguments, (argObject) => {
     _.each(argObject, (value, key) => {
       obj[key] = value;
+    });
+  });
+  return obj;
+};
+
+/////////////////defaults///////////////////////////////////////////
+
+_.defaults = function (obj) {
+  _.each(arguments, (argObject) => {
+    _.each(argObject, (value, key) => {
+      if (obj[key] === undefined) {
+        obj[key] = value;
+      }
     });
   });
   return obj;

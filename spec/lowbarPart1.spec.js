@@ -4,7 +4,7 @@ const sinon = require('sinon');
 
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
-describe('_', function () {
+describe('_', () => {
   'use strict';
 
   it('is an object', () => {
@@ -14,10 +14,12 @@ describe('_', function () {
 
 ///////////////////////////test identity//////////////////////////////////////////////
 
-describe('#identity', function () {
+describe('#identity', () => {
+
   it('is a function', () => {
     expect(_.identity).to.be.a('function');
   });
+
   it('is returns a argument exacty how it is passed', () => {
     expect(_.identity('string')).to.equal('string');
     expect(_.identity(false)).to.equal(false);
@@ -29,7 +31,7 @@ describe('#identity', function () {
 
 ///////////////////////////test values//////////////////////////////////////////////
 
-describe('#values', function () {
+describe('#values', () => {
   it('is a function', () => {
     expect(_.values).to.be.a('function');
   });
@@ -49,7 +51,7 @@ describe('#values', function () {
 
 ///////////////////////////test first//////////////////////////////////////////////
 
-describe('#first', function () {
+describe('#first', () => {
   it('is a function', () => {
     expect(_.first).to.be.a('function');
   });
@@ -81,7 +83,7 @@ describe('#first', function () {
 
 ///////////////////////////test last//////////////////////////////////////////////
 
-describe('#last', function () {
+describe('#last', () => {
   it('is a function', () => {
     expect(_.last).to.be.a('function');
   });
@@ -118,7 +120,7 @@ describe('#last', function () {
 
 ///////////////////////////test each//////////////////////////////////////////////
 
-describe('#each', function () {
+describe('#each', () => {
   it('is a function', () => {
     expect(_.each).to.be.a('function');
   });
@@ -156,7 +158,7 @@ describe('#each', function () {
 
 ///////////////////////////test indexOf//////////////////////////////////////////////
 
-describe('#indexOf', function () {
+describe('#indexOf', () => {
   it('is a function', () => {
     expect(_.indexOf).to.be.a('function');
   });
@@ -191,17 +193,17 @@ describe('#indexOf', function () {
 
 ///////////////////////////test filter//////////////////////////////////////////////
 
-describe('#filter', function () {
-  it('is a function', function () {
+describe('#filter', () => {
+  it('is a function', () => {
     expect(_.reject).to.be.a('function');
   });
 
-  it('returns an empty array if array or object is not passed in', function () {
+  it('returns an empty array if array or object is not passed in', () => {
     expect(_.filter(12345)).to.eql([]);
     expect(_.filter(true)).to.eql([]);
   });
 
-  it('returns a new array with all truthy values if no second argument', function () {
+  it('returns a new array with all truthy values if no second argument', () => {
 
     expect(_.filter([1, 2, 3, 4, false])).to.eql([1, 2, 3, 4]);
     expect(_.filter({ 'a': 1, 'b': 2, 'c': true, 'd': false })).to.eql([1, 2, true]);
@@ -209,7 +211,7 @@ describe('#filter', function () {
     expect(_.filter({ 'a': 1, 'b': 2, 'c': 'hello', 'd': 0 })).to.eql([1, 2, 'hello']);
   });
 
-  it('returns a new array with all items divisible by 2 when passed and object or an array', function () {
+  it('returns a new array with all items divisible by 2 when passed and object or an array', () => {
     const divide = (num) => {
       if (num % 2 === 0) return true;
     };
@@ -217,12 +219,12 @@ describe('#filter', function () {
     expect(_.filter({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, divide)).to.eql([2, 4]);
   });
 
-  it('returns a new array with all items that pass test', function () {
+  it('returns a new array with all items that pass test', () => {
     const dotrue = () => true;
     expect(_.filter([1, 2, 3, 4, 5, 6, 7, 8], dotrue)).to.eql([1, 2, 3, 4, 5, 6, 7, 8]);
   });
 
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function () {
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', () => {
     const spy = sinon.spy();
     let result = true;
     _.each([1, 2, 3, 4, 5], spy);
@@ -233,17 +235,17 @@ describe('#filter', function () {
 
 ///////////////////////////test reject//////////////////////////////////////////////
 
-describe('#reject', function () {
-  it('is a function', function () {
+describe('#reject', () => {
+  it('is a function', () => {
     expect(_.reject).to.be.a('function');
   });
 
-  it('returns an empty array if array or object is not passed in', function () {
+  it('returns an empty array if array or object is not passed in', () => {
     expect(_.reject(12345)).to.eql([]);
     expect(_.reject(true)).to.eql([]);
   });
 
-  it('returns a new array with all truthy values if no second argument', function () {
+  it('returns a new array with all truthy values if no second argument', () => {
 
     expect(_.reject([1, 2, 3, 4, false])).to.eql([false]);
     expect(_.reject({ 'a': 1, 'b': 2, 'c': true, 'd': false })).to.eql([false]);
@@ -251,7 +253,7 @@ describe('#reject', function () {
     expect(_.reject({ 'a': 1, 'b': 2, 'c': 'hello', 'd': 0 })).to.eql([0]);
   });
 
-  it('returns a new array with all items divisible by 2 when passed and object or an array', function () {
+  it('returns a new array with all items divisible by 2 when passed and object or an array', () => {
     const divide = (num) => {
       if (num % 2 === 0) return true;
     };
@@ -259,12 +261,12 @@ describe('#reject', function () {
     expect(_.reject({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, divide)).to.eql([1, 3]);
   });
 
-  it('returns a new array with all items that pass test', function () {
+  it('returns a new array with all items that pass test', () => {
     const dotrue = () => true;
     expect(_.reject([1, 2, 3, 4, 5, 6, 7, 8], dotrue)).to.eql([]);
   });
 
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', function () {
+  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', () => {
     const spy = sinon.spy();
     let result = true;
     _.each([1, 2, 3, 4, 5], spy);
@@ -686,4 +688,43 @@ describe('_.extend', () => {
 
 /////////////////test defaults//////////////////////////////////////////
  
+describe('defaults', () => {
+  it('returns the first argument', () => {
+
+    expect(_.defaults(9876, { number: 5432 })).to.equal(9876);
+    expect(_.defaults('pineapple', 'coconut')).to.equal('pineapple');
+    expect(_.defaults(true, false)).to.equal(true);
+    expect(_.defaults({},{})).to.eql({});
+  });
+
+  it('should copy a property if that key is not already in the first object', () => {
+    expect(_.defaults({ a: 1 }, { a: 2, b: 2 })).to.eql({ a: 1, b: 2 });
+    expect(_.defaults({ a: 1 }, { a: 2, b: 2 },{ a: 2, b: 2, c:3 })).to.eql({ a: 1, b: 2, c:3 });
+  });
+
+  it('should copy value of that in the index position if its position is not already in the first array', () => {
+    expect(_.defaults([1], [2,2])).to.eql([1,2]);
+    expect(_.defaults([1], [2,2],[3,3,3])).to.eql([1,2,3]);
+  });
+
+  it('should not copy a property if that key is already in the first object', () => {
+    expect(_.defaults({ a: 1}, { a: 2})).to.eql({ a: 1});
+    expect(_.defaults({ a: 1, b: 1 }, { a: 2, b: 2 })).to.eql({ a: 1, b: 1 });
+  });
+
+  it('should not copy value of that in the index position if position already exists in the first array', () => {
+    expect(_.defaults([1,1], [2,2])).to.eql([1,1]);
+    expect(_.defaults([1,1,1], [2,2],[3,3,3])).to.eql([1,1,1]);
+  });
+
+  it('should not copy a property if that key is already set on the target, even if the value for that key is falsy', () => {
+    expect(_.defaults({ a: ''}, { a: 2})).to.eql({ a: ''});
+    expect(_.defaults({ a: false, b: NaN }, { a: 2, b: 2 })).to.eql({ a: false, b: NaN });
+  });
+
+  it('should not copy value of that in the index position if position already exists in the first array, even if the value for that position is falsy', () => {
+    expect(_.defaults([NaN,''], [2,2])).to.eql([NaN,'']);
+    expect(_.defaults([null,0,1], [2,2],[3,3,3])).to.eql([null,0,1]);
+  });
+});
     
