@@ -9,7 +9,6 @@ _.identity = arg => arg;
 //////////////////////values///////////////////////////////////////////
 
 _.values = (list) => {
-  // if (typeof(list) === 'string') return list.split('');
   if (!(list instanceof Object)) return [];
   if (Array.isArray(list)) return list;
   let newArray = [];
@@ -266,6 +265,52 @@ _.defaults = function (obj) {
     });
   });
   return obj;
+};
+
+////////////////////once////////////////////////////////////////////
+
+_.once = (fn) => {
+  let firstCall = true;
+  let result;
+
+  return function () {
+    if (firstCall) {
+      firstCall = false;
+      result = fn.apply(null, arguments);
+    }
+    return result;
+  };
+};
+
+////////////////////negate///////////////////////////////////////////
+
+_.negate = () => {
+};
+
+////////////////////shuffle///////////////////////////////////////////
+
+_.shuffle =  (list) => {
+  if (typeof list !== 'object' && typeof list !== 'string') return [];
+
+  let originalList;
+  let shuffledList = [];
+
+  if (Array.isArray(list)) {
+    originalList = list.slice();
+  }
+  else if (typeof list === 'string') {
+    originalList = list.split('');
+  }
+  else if (typeof list === 'object' && list !== null) {
+    originalList = Object.values(list);
+  }
+
+  while (originalList.length > 0) {
+    let randomIndex = Math.floor(Math.random() * originalList.length);
+    shuffledList.push(originalList[randomIndex]);
+    originalList.splice(randomIndex, 1);
+  }
+  return shuffledList;
 };
 
 module.exports = _;

@@ -29,3 +29,21 @@ every
 some
 extends
 defaults
+
+
+1. `once`
+2. `negate`
+3. `shuffle`
+4. `invoke`
+5. `sortBy` 
+6. `zip`
+7. `sortedIndex`
+8. `flatten`
+9. `intersection`
+10. `difference`
+11. `memoize`
+
+12. `delay`
+13. `where`
+14. `throttle`
+15. `partial`

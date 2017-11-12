@@ -622,7 +622,7 @@ describe('#some', () => {
 
 ///////////////////////////test extends//////////////////////////////////////////////
 
-describe('_.extend', () => {
+describe('#extend', () => {
   it('is a function', () => {
     expect(_.extend).to.be.a('function');
   });
@@ -688,7 +688,7 @@ describe('_.extend', () => {
 
 /////////////////test defaults//////////////////////////////////////////
  
-describe('defaults', () => {
+describe('#defaults', () => {
   it('returns the first argument', () => {
 
     expect(_.defaults(9876, { number: 5432 })).to.equal(9876);
