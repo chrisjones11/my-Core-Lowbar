@@ -313,4 +313,21 @@ _.shuffle =  (list) => {
   return shuffledList;
 };
 
+
+////////////////////invoke///////////////////////////////////////////
+
+_.invoke = (list, method, args) => {
+  if (!method) return undefined;
+  const result = [];
+  if (typeof list === 'object' || typeof list === 'string') {
+    _.each(list, a => { 
+      typeof a[method] === 'function' ? result.push(a[method](args)) : result.push(undefined);
+    });
+  }
+  return result;
+};
+
+////////////////////sortBy///////////////////////////////////////////
+
+
 module.exports = _;
