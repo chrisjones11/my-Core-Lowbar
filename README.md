@@ -31,11 +31,11 @@ extends
 defaults
 
 
-1. `once`
+<!-- 1. `once` -->
 2. `negate`
-3. `shuffle`
-4. `invoke`
-5. `sortBy` 
+<!-- 3. `shuffle` -->
+<!-- 4. `invoke` -->
+<!-- 5. `sortBy`  -->
 6. `zip`
 7. `sortedIndex`
 8. `flatten`

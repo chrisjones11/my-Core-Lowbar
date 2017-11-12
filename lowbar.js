@@ -329,5 +329,44 @@ _.invoke = (list, method, args) => {
 
 ////////////////////sortBy///////////////////////////////////////////
 
+_.sortBy = (list, iteratee, context) => {
+  let arrayList, iterated = false;
+  Array.isArray(list) ? arrayList = [...list] : arrayList = _.defaults({}, list);
+  if (typeof arrayList === 'string') arrayList = arrayList.split('');
+  if (arrayList instanceof Object && !(Array.isArray(arrayList))) {
+    const newList = [];
+    for (let key in arrayList) {
+      newList.push(arrayList[key]);
+    }
+    arrayList = newList;
+  }
+
+  if (typeof iteratee === 'function') {
+    const newList = [];
+    _.each(arrayList, (val) => {
+      newList.push({ originalValue: val, newValue: iteratee.call(context, val) });
+    });
+    arrayList = newList, iterated = true;
+  }
+
+  //  sort the array
+  let result = arrayList.sort((a, b) => {
+    if (iteratee) {
+      if (iterated) return a.newValue > b.newValue;
+      return a[iteratee] > b[iteratee];
+    }
+    return a > b;
+  });
+
+  if (iterated) {
+    const updatedResult = [];
+    _.each(result, v => {
+      updatedResult.push(v.originalValue);
+    });
+    return updatedResult;
+  }
+  return result;
+};
+
 
 module.exports = _;
