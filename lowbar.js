@@ -390,9 +390,9 @@ _.zip = function () {
 _.sortedIndex = () => {
 };
 
-////////////////////flatten///////////////////////////////////////////
+////////////////////flatten///////////////////////////////////////////////
 
-_.flatten = function (array, shallow) {
+_.flatten = (array, shallow) => {
   if (!Array.isArray(array) && typeof array !== 'string') return [];
 
   return _.reduce(array, function (acc, item) {
@@ -401,7 +401,22 @@ _.flatten = function (array, shallow) {
   }, []);
 };
 
+////////////////////intersection///////////////////////////////////////////
 
+_.intersection = function () {
+  let newArrays = [].slice.call(arguments);
+  let resultArr = [];
+  
+  if (!Array.isArray(newArrays[0]) && typeof newArrays[0] !== 'string') return [];
 
+  _.each(newArrays[0], function (item) {
+    let isCommon = true;
+    _.each(newArrays, function (arr) {
+      if (!_.contains(arr, item)) isCommon = false;
+    });
+    if (isCommon && !_.contains(resultArr, item)) resultArr.push(item);
+  });
+  return resultArr;
+};
 
 module.exports = _;
