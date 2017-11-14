@@ -369,18 +369,16 @@ _.sortBy = (list, iteratee, context) => {
 
 _.zip = function () {
   const result = [];
-  //  find the length of the longest argument
-  let longest = 0;
+  let longestArgumentLength = 0;
   for (let i = 0; i < arguments.length; i++) {
-    if (arguments[i].length > longest) longest = arguments[i].length;
+    if (arguments[i].length > longestArgumentLength) longestArgumentLength = arguments[i].length;
   }
-  //  create a temporary array containing the arguments at a given index of each array
-  for (let j = 0; j < longest; j++) {
+  
+  for (let j = 0; j < longestArgumentLength; j++) {
     const tempArr = [];
     for (let k = 0; k < arguments.length; k++) {
       tempArr.push(arguments[k][j]);
     }
-    // push the temporary array to the result 
     result.push(tempArr);
   }
   return result;

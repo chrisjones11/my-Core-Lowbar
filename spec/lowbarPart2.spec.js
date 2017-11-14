@@ -242,3 +242,5 @@ describe('#zip', function () {
     expect(_.zip(['chris', 'emily'], [30, 40], [true, false, false])).to.eql([['chris', 30, true], ['emily', 40, false], [undefined, undefined, false]]);
   });
 });
+
+///////////////////////////test zip///////////////////////////////////////////
