@@ -211,3 +211,34 @@ describe('#sortBy', () => {
     expect(_.sortBy(arr, 'age')).to.eql(res);
   });
 });
+
+///////////////////////////test zip///////////////////////////////////////////
+
+
+describe('#zip', function () {
+
+  it('should be a function', function () {
+    expect(_.zip).to.be.a('function');
+  });
+
+  it('should return an empty array when given an invalid data type', function () {
+    expect(_.zip(true)).to.eql([]);
+    expect(_.zip(1234)).to.eql([]);
+  });
+
+  it('returns the expected result if only one array is provided as an argument', () => {
+    expect(_.zip([1, 2, 3])).to.eql([[1], [2], [3]]);
+  });
+
+  it('should merge together the values of each of the arrays with the values at the same index position', function () {
+    expect(_.zip(['chris', 'emily', 'rhys'], [1, 2, 3], [true, false, false])).to.eql([['chris', 1, true], ['emily', 2, false], ['rhys', 3, false]]);
+  });
+
+  it('should merge together the values of each of the strings with the values at the same index position', function () {
+    expect(_.zip('ben', 'jen', 'ken')).to.eql([['b', 'j', 'k' ], ['e', 'e', 'e'], ['n','n', 'n']]);
+  });
+
+  it('4. returns the expected result if the arrays are different lengths', () => {
+    expect(_.zip(['chris', 'emily'], [30, 40], [true, false, false])).to.eql([['chris', 30, true], ['emily', 40, false], [undefined, undefined, false]]);
+  });
+});
