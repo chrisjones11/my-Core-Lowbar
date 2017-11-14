@@ -369,12 +369,12 @@ _.sortBy = (list, iteratee, context) => {
 
 _.zip = function () {
   const result = [];
-  let longestArgumentLength = 0;
+  let longest = 0;
   for (let i = 0; i < arguments.length; i++) {
-    if (arguments[i].length > longestArgumentLength) longestArgumentLength = arguments[i].length;
+    if (arguments[i].length > longest) longest = arguments[i].length;
   }
-  
-  for (let j = 0; j < longestArgumentLength; j++) {
+
+  for (let j = 0; j < longest; j++) {
     const tempArr = [];
     for (let k = 0; k < arguments.length; k++) {
       tempArr.push(arguments[k][j]);
@@ -383,6 +383,24 @@ _.zip = function () {
   }
   return result;
 };
+
+
+////////////////////sortedIndex///////////////////////////////////////////
+
+_.sortedIndex = () => {
+};
+
+////////////////////flatten///////////////////////////////////////////
+
+_.flatten = function (array, shallow) {
+  if (!Array.isArray(array) && typeof array !== 'string') return [];
+
+  return _.reduce(array, function (acc, item) {
+    if ((!shallow) && Array.isArray(item)) item = _.flatten(item);
+    return acc.concat(item);
+  }, []);
+};
+
 
 
 

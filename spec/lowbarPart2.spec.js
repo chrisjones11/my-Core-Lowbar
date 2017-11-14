@@ -243,4 +243,52 @@ describe('#zip', function () {
   });
 });
 
-///////////////////////////test zip///////////////////////////////////////////
+///////////////////////////test sortedIndex///////////////////////////////////
+
+
+describe('#sortedIndex', () => {
+  it('1. is a function', () => {
+    expect(_.sortedIndex).to.be.a('function');
+  });
+});
+
+///////////////////////////test flatten///////////////////////////////////////
+
+describe('#flatten', () => {
+  it('is a function', () => {
+    expect(_.flatten).to.be.a('function');
+  });
+
+  it('returns an array from 2 nested arrays 1 level in', () => {
+    expect(_.flatten([[1, 2], [3, 4, 5]])).to.eql([1, 2, 3, 4, 5]);
+  });
+
+  it('returns array from an array of nested arrays to any level depth', () => {
+    expect(_.flatten([[1, [2]], [3, [4], 5]])).to.eql([1, 2, 3, 4, 5]);
+    expect(_.flatten([1, [[2]], [[[3]]]])).to.eql([1, 2, 3]);
+    expect(_.flatten([1, [2, [3, [4, [[5]], [[6]], [[[7]]]]], 8], 9])).to.eql([1,2,3,4,5,6,7,8,9]);
+  });
+
+  it('returns an array from a single level if shallow is true', () => {
+    expect(_.flatten([1, 2, [3, [4]]])).to.eql([1, 2, 3, 4]);
+    expect(_.flatten([1, 2, [3, [4]]], true)).to.eql([1, 2, 3, [4]]);
+  });
+
+  it('returns an array from a single level if a non-falsy value is passed as the second argument', () => {
+    expect(_.flatten([1, [2, [3]]]), false).to.eql([1, 2, 3]);
+    expect(_.flatten([1, [2, [3]]]), 0).to.eql([1, 2, 3]);
+    expect(_.flatten([1, [2, [3]]], 'abc')).to.eql([1, 2, [3]]);
+    expect(_.flatten([1, [2, [3]]], [2])).to.eql([1, 2, [3]]);
+    expect(_.flatten([1, [2, [3]]], { a: 1 })).to.eql([1, 2, [3]]);
+  });
+
+  it('returns an empty array if an array or string is not passedas an argument', () => {
+    expect(_.flatten(123)).to.eql([]);
+    expect(_.flatten({ a: 1, b: 2 })).to.eql([]);
+    expect(_.flatten(true)).to.eql([]);
+  });
+});
+
+///////////////////////////test intersection///////////////////////////////////
+
+
