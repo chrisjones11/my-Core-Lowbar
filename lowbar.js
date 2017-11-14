@@ -406,7 +406,7 @@ _.flatten = (array, shallow) => {
 _.intersection = function () {
   let newArrays = [].slice.call(arguments);
   let resultArr = [];
-  
+
   if (!Array.isArray(newArrays[0]) && typeof newArrays[0] !== 'string') return [];
 
   _.each(newArrays[0], function (item) {
@@ -417,6 +417,22 @@ _.intersection = function () {
     if (isCommon && !_.contains(resultArr, item)) resultArr.push(item);
   });
   return resultArr;
+};
+
+////////////////////difference///////////////////////////////////////////
+
+_.difference = function (array) {
+  let otherArrays = [].slice.call(arguments, 1);
+  let finalArr = [];
+  if (typeof array === 'string') return array.split('');
+  _.each(array, function (item) {
+    let isUnique = true;
+    _.each(otherArrays, function (arr) {
+      if (_.contains(arr, item)) isUnique = false;
+    });
+    if (isUnique && !_.contains(finalArr, item)) finalArr.push(item);
+  });
+  return finalArr;
 };
 
 module.exports = _;

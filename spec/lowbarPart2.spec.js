@@ -4,6 +4,8 @@ const sinon = require('sinon');
 
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
+
+
 describe('_', () => {
   'use strict';
 
@@ -14,11 +16,11 @@ describe('_', () => {
 
 ///////////////////////////test once//////////////////////////////////////////////
 
-describe('#once', function () {
-  it('should be a function', function () {
+describe('#once', () => {
+  it('should be a function', () => {
     expect(_.once).to.be.a('function');
   });
-  it('should only allow the function to be called once', function () {
+  it('should only allow the function to be called once', () => {
     let Spy = sinon.spy();
     let mySpyOnce = _.once(Spy);
     mySpyOnce();
@@ -26,13 +28,13 @@ describe('#once', function () {
     mySpyOnce();
     expect(Spy.callCount).to.equal(1);
   });
-  it('should forward all the arguments from the returned function to the original function', function () {
+  it('should forward all the arguments from the returned function to the original function', () => {
     let Spy = sinon.spy();
     let mySpyOnce = _.once(Spy);
     mySpyOnce(1, 2, 3);
     expect(Spy.calledWithExactly(1, 2, 3)).to.equal(true);
   });
-  it('should always return the result of the first invocation', function () {
+  it('should always return the result of the first invocation', () => {
     let identityOnce = _.once(_.identity);
     let results = [];
     results.push(identityOnce(1));
@@ -44,8 +46,8 @@ describe('#once', function () {
 
 ///////////////////////////test negate//////////////////////////////////////////////
 
-describe('#negate', function () {
-  it('should be a function', function () {
+describe('#negate', () => {
+  it('should be a function', () => {
     expect(_.negate).to.be.a('function');
   });
 });
@@ -215,13 +217,13 @@ describe('#sortBy', () => {
 ///////////////////////////test zip///////////////////////////////////////////
 
 
-describe('#zip', function () {
+describe('#zip', () => {
 
-  it('should be a function', function () {
+  it('should be a function', () => {
     expect(_.zip).to.be.a('function');
   });
 
-  it('should return an empty array when given an invalid data type', function () {
+  it('should return an empty array when given an invalid data type', () => {
     expect(_.zip(true)).to.eql([]);
     expect(_.zip(1234)).to.eql([]);
   });
@@ -230,11 +232,11 @@ describe('#zip', function () {
     expect(_.zip([1, 2, 3])).to.eql([[1], [2], [3]]);
   });
 
-  it('should merge together the values of each of the arrays with the values at the same index position', function () {
+  it('should merge together the values of each of the arrays with the values at the same index position', () => {
     expect(_.zip(['chris', 'emily', 'rhys'], [1, 2, 3], [true, false, false])).to.eql([['chris', 1, true], ['emily', 2, false], ['rhys', 3, false]]);
   });
 
-  it('should merge together the values of each of the strings with the values at the same index position', function () {
+  it('should merge together the values of each of the strings with the values at the same index position', () => {
     expect(_.zip('ben', 'jen', 'ken')).to.eql([['b', 'j', 'k' ], ['e', 'e', 'e'], ['n','n', 'n']]);
   });
 
@@ -324,6 +326,44 @@ describe('#intersection', () => {
     expect(_.intersection(123, 123)).to.eql([]);
     expect(_.intersection({ a: 1, b: 2 }, { a: 1 })).to.eql([]);
     expect(_.intersection(true, true)).to.eql([]);
+  });
+});
+
+///////////////////////////test difference///////////////////////////////////
+ 
+describe('#difference', () => {
+
+  it('should be a function', () => {
+    expect(_.difference).to.be.a('function');
+  });
+
+  it('should return a blank array when given an invalid data type', () => {
+    expect(_.difference(123)).to.eql([]);
+    expect(_.difference(true)).to.eql([]);
+    expect(_.difference(null)).to.eql([]);
+    expect(_.difference(undefined)).to.eql([]);
+  });
+
+  it('should return any values from the first array that are not present in any other arrays given', () => {
+    expect(_.difference([1, 2, 3, 4, 5], [5, 2, 10])).to.eql([1, 3, 4]);
+    expect(_.difference([1, 2, 3, 4, 5], [5, 2, 10], [3, 11, 5])).to.eql([1, 4]);
+  });
+
+  it('should return an empty array if there are no unique values contained in the first array', () => {
+    expect(_.difference([1, 2, 3], [1, 2, 3])).to.eql([]);
+    expect(_.difference([1, 2, 3, 4], [1, 2], [3, 4])).to.eql([]);
+    expect(_.difference(['a', 'b', 'c'], ['a', 'b', 'c'])).to.eql([]);
+  });
+
+  it('should return a split string when given a string instead of an array', () => {
+    expect(_.difference('hello')).to.eql(['h','e','l','l', 'o']);
+
+    expect(_.difference('one', 'two', 'three')).to.eql(['o', 'n', 'e']);
+  });
+
+  it('should return any unique values from the first array/object when given a mix of arrays/objects', () => {
+    expect(_.difference([1, 2, 3], [101, 2, 1, 10], { a: 6, b: 2, c: 35 })).to.eql([3]);
+    expect(_.difference({ a: 6, b: 2, c: 35 }, [1, 2, 3], [101, 2, 1, 10])).to.eql([6, 35]);
   });
 });
 

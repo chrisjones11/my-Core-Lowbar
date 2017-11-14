@@ -32,7 +32,7 @@ sortBy
 zip
 <!-- sortedIndex -->
 flatten
-<!-- difference -->
+difference
 <!-- memoize -->
 <!-- delay -->
 <!-- where -->
