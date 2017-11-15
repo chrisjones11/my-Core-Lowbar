@@ -247,11 +247,42 @@ describe('#zip', () => {
 
 ///////////////////////////test sortedIndex///////////////////////////////////
 
-
 describe('#sortedIndex', () => {
+
   it('is a function', () => {
     expect(_.sortedIndex).to.be.a('function');
   });
+
+  it('returns 0 if given an invalid data type', () => {
+    expect(_.sortedIndex(1345, 2)).to.equal(0);
+    expect(_.sortedIndex(true, false)).to.equal(0);
+    expect(_.sortedIndex({ a: 2, b: 4, c: 6, d: 10 }, { e: 8 })).to.equal(0);
+  });
+
+  it('returns the index at which the value should be inserted into the sorted list',  () => {
+    expect(_.sortedIndex([1, 2, 3, 5, 6], 4)).to.equal(3);
+    expect(_.sortedIndex([10, 20, 30, 40, 50], 35)).to.equal(3);
+    expect(_.sortedIndex([10, 20, 30, 40, 50], 45)).to.equal(4);
+    expect(_.sortedIndex(['a', 'e', 'o', 'u'], 'i')).to.equal(2);
+  });
+
+  it('return the index of where the value should be inserted into the list when given a third arg which to sorts the list',  () => {
+    expect(_.sortedIndex(['he', 'hen', 'holiday', 'ken'], 'hello', 'length')).to.equal(3);
+  });
+
+  it('returns the index at which the object should be inserted into the list',  () => {
+    let family = [{ name: 'chris', age: 28 }, { name: 'emily', age: 38 }];
+    expect(_.sortedIndex(family, { name: 'rhys', age: 32 }, 'age')).to.equal(1);
+  });
+
+  it('returns the index that a number should be inserted at if the number is provided as the only element in an array', () => {
+    expect(_.sortedIndex([10, 20, 30, 40, 50, 60], [31])).to.equal(3);
+  });
+
+  it('returns the index that a number should be inserted at if the number is provided as a string', () => {
+    expect(_.sortedIndex([10, 20, 30, 40, 50, 60], '31')).to.equal(3);
+  });
+
 });
 
 ///////////////////////////test flatten///////////////////////////////////////
@@ -421,3 +452,61 @@ describe('#memoize',() => {
   });
 
 });
+
+
+/////////////////////////test delay/////////////////////////////////////////
+
+describe('#delay', () => {
+
+  it('is a function', () =>  {
+    expect(_.delay).to.be.a('function');
+  });
+  
+  let clock;
+  before( () => { clock = sinon.useFakeTimers(); });
+  after( () => { clock.restore(); });
+  
+  it('delays invocation of callback for specified period', () => {
+    let callback = sinon.spy();
+    let wait = 300;
+
+    _.delay(callback, wait);
+
+    clock.tick(1);
+    expect(callback.callCount).to.equal(0);
+    expect(callback.notCalled).to.equal(true);
+    expect(callback.called).to.equal(false);
+
+    clock.tick(300);
+    expect(callback.callCount).to.equal(1);
+    expect(callback.notCalled).to.equal(false);
+    expect(callback.called).to.equal(true);
+
+    clock.tick(301);
+    expect(callback.callCount).to.equal(1);
+    expect(callback.notCalled).to.equal(false);
+    expect(callback.called).to.equal(true);
+  });
+
+  it('returns undefined if no arguments passed to function', () => {
+    let result = undefined;
+    expect(_.delay()).to.equal(result);
+  });
+
+  it('returns undefined if first argument is not a function', function () {
+    let result = undefined;
+    let wait = 0;
+
+
+    let func = 123;
+    expect(_.delay(func, wait)).to.equal(result);
+
+    func = 123.45;
+    expect(_.delay(func, wait)).to.equal(result);
+  });
+});
+
+
+
+
+

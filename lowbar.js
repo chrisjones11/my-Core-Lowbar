@@ -387,7 +387,33 @@ _.zip = function () {
 
 ////////////////////sortedIndex///////////////////////////////////////////
 
-_.sortedIndex = () => {
+_.sortedIndex = function (list, value, iteratee) {
+  if (!Array.isArray(list) && typeof list !== 'string') return 0;
+
+  let copyList = list.slice();
+  copyList.push(value);
+
+  if (arguments[2]) {
+    copyList = _.sortBy(copyList, iteratee);
+
+    let start = 0;
+    let end = copyList.length - 1;
+    let mid;
+    while (end >= start) {
+      mid = Math.floor((start + end) / 2);
+      if (copyList[mid][iteratee] === value[iteratee]) {
+        return mid;
+      }
+      else if (copyList[mid][iteratee] < value[iteratee]) {
+        start = mid + 1;
+      } else {
+        end = mid - 1;
+      }
+    }
+    return -1;
+
+  } else copyList.sort();
+  return _.indexOf(copyList, value, true);
 };
 
 ////////////////////flatten///////////////////////////////////////////////
@@ -450,6 +476,16 @@ _.memoize = (fn, hash) => {
   return memo;
 };
 
+////////////////////delay///////////////////////////////////////////////
 
+_.delay = function (func, wait) {
+  
+  if (arguments.length === 0 || typeof func !== 'function') return undefined;
+  
+  let args = [].slice.call(arguments, 2);
+  return setTimeout( () => {
+    return func.apply(null, args);
+  }, wait);
+};
 
 module.exports = _;

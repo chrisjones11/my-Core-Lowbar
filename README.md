@@ -30,11 +30,11 @@ shuffle
 invoke
 sortBy
 zip
-<!-- sortedIndex -->
+sortedIndex
 flatten
 difference
-<!-- memoize -->
-<!-- delay -->
+memoize
+delay
 <!-- where -->
 <!-- throttle -->
 <!-- partial -->
