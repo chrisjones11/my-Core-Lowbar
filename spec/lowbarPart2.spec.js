@@ -367,3 +367,57 @@ describe('#difference', () => {
   });
 });
 
+/////////////////////////test memoize///////////////////////////////////////
+
+describe('#memoize',() => {
+  it('is a function', () => {
+    expect(_.memoize).to.be.a('function');
+  });
+
+  it('returns a function', () => {
+    expect(_.memoize(() => {})).to.be.a('function');
+    expect(_.memoize(123)).to.be.a('function');
+  });
+
+  it('should return the same value as original function', () => {
+    const dble = n => 2 * n;
+    const memDble = _.memoize(dble);
+    expect(memDble(1)).to.equal(memDble(1));
+  });
+
+  it('should call the function only once for multiple calls with the same argument', () => {
+    const dble = n => 2 * n;
+    const spy = sinon.spy(dble);
+    const memDble = _.memoize(spy);
+    memDble(1);
+    memDble(1);
+    memDble(1);
+    expect(spy.callCount).to.equal(1);
+  });
+
+  it('should call the function multiple times with different arguments', () => {
+    const double = n => 2 * n;
+    const spy = sinon.spy(double);
+    const memDble = _.memoize(spy);
+    memDble(1);
+    memDble(2);
+    memDble(3);
+    expect(spy.callCount).to.equal(3);
+  });
+
+  it('has a cache property which stores the cache object', () => {
+    const dble = n => 2 * n;
+    const memDble = _.memoize(dble);
+    memDble(2);
+    expect(memDble.cache).to.eql({ 2: 4 });
+  });
+
+  it('has a hash as a second argument to work out the hash key for storing', () => {
+    const iteratee = n => n * 2;
+    const hash = n => `num${n}`;
+    const test = _.memoize(iteratee, hash);
+    test(2);
+    expect(test.cache).to.eql({ num2: 4 });
+  });
+
+});

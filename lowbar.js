@@ -435,4 +435,21 @@ _.difference = function (array) {
   return finalArr;
 };
 
+////////////////////memoize///////////////////////////////////////////////
+
+_.memoize = (fn, hash) => {
+  const cache = {};
+  const memo = function () {
+    const args = hash ? hash.apply(null, arguments) : JSON.stringify(arguments[0]);
+    if (!cache[args]) {
+      cache[args] = fn.apply(null, arguments);
+    }
+    return cache[args];
+  };
+  memo.cache = cache;
+  return memo;
+};
+
+
+
 module.exports = _;
