@@ -46,10 +46,27 @@ describe('#once', () => {
 
 ///////////////////////////test negate//////////////////////////////////////////////
 
-describe('#negate', () => {
-  it('should be a function', () => {
+describe( '#negate', () => {
+  'use strict';
+  it('it is a function', () => {
     expect(_.negate).to.be.a('function');
   });
+  it('returns the function itself if not passed a function as an argument', () => {
+    expect(_.negate()).to.be.a('function');
+  });
+  it('negates the result of a function passed to it', () => {
+    let isFalsy = _.negate(Boolean);
+    expect(isFalsy(false)).to.be.true;
+    expect(isFalsy(true)).to.be.false;
+
+    let isEven = (num) => {
+      return num % 2 !== 1;
+    };
+
+    let isOdd = _.negate(isEven);
+    expect(isOdd(1)).to.be.true;
+  });
+
 });
 
 ///////////////////////////test shuffle///////////////////////////////////////////
@@ -155,62 +172,51 @@ describe('_.invoke', () => {
 ///////////////////////////test sortBy///////////////////////////////////////////
 
 describe('#sortBy', () => {
-  it('is a function', () => {
+  it('it is a function', () => {
     expect(_.sortBy).to.be.a('function');
   });
-
-  it('returns an empty array if a non-valid argument is given', () => {
-    expect(_.sortBy(true)).to.eql([]);
-    expect(_.sortBy(123)).to.eql([]);
-    expect(_.sortBy(undefined)).to.eql([]);
-    expect(_.sortBy(null)).to.eql([]);
+  
+  it('returns an empty array when not given valid list', () => {
     expect(_.sortBy()).to.eql([]);
+    expect(_.sortBy(12)).to.eql([]);
+    expect(_.sortBy(false)).to.eql([]);
   });
 
-  it('returns an array of alphabetically ordered letters if a string argument is given', () => {
-    expect(_.sortBy('hello')).to.eql(['e', 'h', 'l', 'l', 'o']);
-    expect(_.sortBy('hello world')).to.eql([' ', 'd', 'e', 'h', 'l', 'l', 'l', 'o', 'o', 'r', 'w']);
+  it('it returns an array of elements sorted alphabetically when given a string', () => {
+    const str = 'cba';
+    const expected = ['a', 'b', 'c'];
+    expect(_.sortBy(str)).to.eql(expected);
   });
 
-  it('returns a new array', () => {
-    const arr = [1, 2, 3, 4, 5];
-    expect(_.sortBy(arr)).to.not.equal(arr);
+  it('it returns an array of sorted elements when given an array', () => {
+    const expectedNums = [1, 2, 3, 4];
+    const Nums = [4, 3, 2, 1];
+    const expectedStr = ['a', 'b', 'c', 'd'];
+    const Str = ['d', 'c', 'b', 'a'];
+    const Obj = {a:4, b:3, c:2, d:1};
+    expect(_.sortBy(Nums)).to.eql(expectedNums);
+    expect(_.sortBy(Obj)).to.eql(expectedNums);
+    expect(_.sortBy(Str)).to.eql(expectedStr);
   });
 
-  it('returns a sorted array of values in ascending order', () => {
-    const arr = [7, 3, 5, 1, 0, 19];
-    expect(_.sortBy(arr)).to.eql([0, 1, 3, 5, 7, 19]);
-
-    const objNum = { a: 7, b: 1, c: 12, d: 5 };
-    expect(_.sortBy(objNum)).to.eql([1, 5, 7, 12]);
-    
-    const arrStr = ['zoo', 'ant', 'elephant'];
-    expect(_.sortBy(arrStr)).to.eql(['ant', 'elephant', 'zoo']);
-
-    const BoolArray = [true, true, false, true, false, true];
-    expect(_.sortBy(BoolArray)).to.eql([false, false, true, true, true, true]);
+  it('it returns an array of sorted elements based on the iteratee', () => {
+    const Nums = [1,2,3,4,5,6];
+    const expectedNums = [5, 4, 6, 3, 1, 2];
+    const Strs = ['aaaa', 'aaa', 'aa', 'a'];
+    const Obj = {0: 'aaaa', 1: 'aaa', 2: 'aa', 3: 'a'};
+    const expectedStrs = ['a', 'aa', 'aaa', 'aaaa'];
+    expect(_.sortBy(Nums, num => Math.sin(num))).to.eql(expectedNums);
+    expect(_.sortBy(Strs, str => str.length)).to.eql(expectedStrs);
+    expect(_.sortBy(Obj, str => str.length)).to.eql(expectedStrs);
   });
 
-  it('returns a sorted array of mixed number and string values, with the values unchanged', () => {
-    const mixed = ['a', 1, 'b', 2];
-    expect(_.sortBy(mixed)).to.eql(mixed);
-    expect(_.sortBy(mixed)).to.not.equal(mixed);
-  });
-
-  it('returns an array sorted by the results of passing each value through a function', () => {
-    const func = n => Math.sin(n);
-    expect(_.sortBy([1, 2, 3, 4, 5], func)).to.eql([5, 4, 3, 1, 2]);
-  });
-
-  it('13. returns an array stably sorted by the results of passing each value in an object through an iteratee (number)', () => {
-    const func = n => Math.sin(n);
-    expect(_.sortBy({ a: 1, b: 2, c: 3}, func)).to.eql([3, 1, 2]);
-  });
-
-  it('returns an array of objects sorted by a given key instead of function', () => {
-    const arr = [{ name: 'umair', age: 32 }, { name: 'chris', age: 28 }, { name: 'ollie', age: 30 }];
-    const res = [{ name: 'chris', age: 28 }, { name: 'ollie', age: 30 }, { name: 'umair', age: 32 }];
-    expect(_.sortBy(arr, 'age')).to.eql(res);
+  it('it returns an array of sorted elements based on an iteratee using context', () => {
+    const Nums = [1,2,3,4,5,6];
+    const oneOverThis = function(num ) {
+      return this / num;
+    };
+    const expectedNums = [6,5,4,3,2,1];
+    expect(_.sortBy(Nums, oneOverThis, 1)).to.eql(expectedNums);
   });
 });
 

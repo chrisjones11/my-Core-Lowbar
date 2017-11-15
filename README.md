@@ -25,7 +25,7 @@ some
 extends
 defaults
 once
-<!-- negate -->
+negate
 shuffle
 invoke
 sortBy

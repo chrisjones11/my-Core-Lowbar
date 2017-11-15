@@ -254,15 +254,13 @@ _.extend = function (obj)  {
 
 /////////////////defaults///////////////////////////////////////////
 
-_.defaults = function (obj) {
-  _.each(arguments, (argObject) => {
-    _.each(argObject, (value, key) => {
-      if (obj[key] === undefined) {
-        obj[key] = value;
-      }
-    });
-  });
-  return obj;
+_.defaults = (object, ...sources) => {
+  return _.reduce(sources, (acc, item) => {
+    for (let key in item) {
+      if (acc[key] === undefined) acc[key] = item[key];
+    }
+    return acc;
+  }, object);
 };
 
 ////////////////////once////////////////////////////////////////////
@@ -282,7 +280,13 @@ _.once = (fn) => {
 
 ////////////////////negate///////////////////////////////////////////
 
-_.negate = () => {
+_.negate = (func) => {
+  if (typeof func !== 'function') return _.negate;
+
+  return function () {
+
+    return !func.apply(this, arguments);
+  };
 };
 
 ////////////////////shuffle///////////////////////////////////////////
@@ -317,8 +321,8 @@ _.invoke = (list, method, args) => {
   if (!method) return undefined;
   const result = [];
   if (typeof list === 'object' || typeof list === 'string') {
-    _.each(list, a => { 
-      typeof a[method] === 'function' ? result.push(a[method](args)) : result.push(undefined);
+    _.each(list, (item) => { 
+      typeof item[method] === 'function' ? result.push(item[method](args)) : result.push(undefined);
     });
   }
   return result;
