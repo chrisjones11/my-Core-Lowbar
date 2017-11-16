@@ -512,7 +512,111 @@ describe('#delay', () => {
   });
 });
 
+/////////////////////////test where/////////////////////////////////////////
 
+describe('#where', () => {
+  it('it is a function', () => {
+    expect(_.where).to.be.a('function');
+  });
 
+  it('returns an array from the array containing the properties passed', () => {
+    const list = [
+      { name: 'chris', gender: 'male'},    
+      { name: 'emily', gender: 'female'},
+      { name: 'rhys', gender: 'male'}
+    ];
+    expect(_.where(list, {gender: 'female'})).to.eql([
+      { name: 'emily', gender: 'female'}
+    ]);
+  });
+
+  it('returns an array from the string containing the properties passed', () => {
+    expect(_.where('abc', {0: 'a'})).to.eql(['a']);
+    expect(_.where('abc', {0: 'b'})).to.eql(['b']);
+    expect(_.where('abc', {0: 'c'})).to.eql(['c']);
+  });
+
+  it('returns an empty array when not an object or string', () => {
+    expect(_.where()).to.eql([]);
+    expect(_.where(1)).to.eql([]);
+    expect(_.where(true)).to.eql([]);
+  });
+
+  it('returns an array when given a string', () => {
+    expect(_.where('a')).to.eql(['a']);
+    expect(_.where('ab')).to.eql(['a','b']);
+  });
+});
+
+/////////////////////////test throttle//////////////////////////////////////
+
+describe('#throttle', () => {
+  let sum = (acc, item) => {
+    return acc + item;
+  };
+
+  beforeEach(() => {
+    this.clock = sinon.useFakeTimers();
+    this.spy = sinon.spy(sum);
+  });
+  afterEach(() => {
+    this.clock.restore();
+  });
+  it('it is a function', () => {
+    expect(_.throttle).to.be.a('function');
+  });
+  it('it returns a function', () => {
+    expect(_.throttle()).to.be.a('function');
+    expect(_.throttle(5)).to.be.a('function');
+    expect(_.throttle('hello')).to.be.a('function');
+  });
+  it('it returns a function that behaves like the function passed to it', () => {
+    const throttleSum = _.throttle(sum);
+    expect(throttleSum(1,2)).to.equal(3);
+  });
+  it('it calls the passed function once every wait period', () => {
+
+    const throttleSpy = _.throttle(this.spy, 100);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
+    expect(this.spy.callCount).to.equal(1);
+    this.clock.tick(101);
+    expect(this.spy.callCount).to.equal(2);
+  });
+  it('it calls the function after the wait period if called multiple times during wait period if given option leading as true', () => {
+    const throttleSpy = _.throttle(this.spy,100, {leading: true});
+    throttleSpy(1,2);
+    this.clock.tick(95);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
+    expect(this.spy.callCount).to.equal(1);
+    this.clock.tick(200);
+    expect(this.spy.callCount).to.equal(2);
+  });
+  it('it calls the function once at the beginning of the next  wait period when called multiple times if given option leading as false', () => {
+    const throttleSpy = _.throttle(this.spy, 100, {leading: false});
+    throttleSpy(1,1);
+    throttleSpy(1,1);
+    throttleSpy(1,1);
+    expect(this.spy.callCount).to.equal(0);
+    this.clock.tick(120);
+    expect(this.spy.callCount).to.equal(1);
+  });
+  it('it calls the function once at the beginning of the next wait period when called multiple times if given option trailing as true', () => {
+    const throttleSpy = _.throttle(this.spy, 100, {leading: false});
+    throttleSpy(1,1);
+    throttleSpy(1,1);
+    throttleSpy(1,1);
+    expect(this.spy.callCount).to.equal(0);
+    this.clock.tick(120);
+    expect(this.spy.callCount).to.equal(1);
+    this.clock.restore();
+  });
+});
 
 

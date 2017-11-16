@@ -480,7 +480,7 @@ _.memoize = (fn, hash) => {
   return memo;
 };
 
-////////////////////delay///////////////////////////////////////////////
+////////////////////delay/////////////////////////////////////////////////
 
 _.delay = function (func, wait) {
   
@@ -490,6 +490,48 @@ _.delay = function (func, wait) {
   return setTimeout( () => {
     return func.apply(null, args);
   }, wait);
+};
+
+///////////////////////where///////////////////////////////////////////////
+
+_.where = (list, props) => {
+  
+  return _.filter(list, item => {
+    let bool = true;
+    for (let key in props) {
+      if (item[key] !== props[key]) bool = false;
+    }
+    return bool;
+  });
+};
+  
+///////////////////////throttle////////////////////////////////////////////
+
+_.throttle = (func, wait = 0, options = {leading: true}) => {
+  const begin = Date.now();
+  let callCount = 0;
+  let loadBegin;
+  let loadFlag = true;
+  const caller = function (...args) {
+
+    if (callCount === 0) {
+      loadBegin = Date.now();
+      callCount++;
+      return options.leading === false ? _.delay(func, wait, ...args) : func(...args);
+    }
+
+    if (callCount > 0) {
+      if ((options.leading === true || options.trailing === true) && loadFlag) {
+        loadFlag = false;
+        return _.delay(func, wait - Date.now() - loadBegin, ...args);
+      }
+    }
+    if (Date.now() - begin > wait) {
+      callCount = 0;
+      loadFlag = true;
+    }
+  };
+  return caller;
 };
 
 module.exports = _;

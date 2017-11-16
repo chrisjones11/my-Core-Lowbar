@@ -35,7 +35,7 @@ flatten
 difference
 memoize
 delay
-<!-- where -->
+where
 <!-- throttle -->
 <!-- partial -->
 
