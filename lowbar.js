@@ -1,3 +1,4 @@
+const {binarySearch} = require ('./utils');
 const _ = {};
 
 //////////////////////identity//////////////////////////////////////////
@@ -62,19 +63,17 @@ _.indexOf = (array, value, isSorted) => {
     return -1;
   }
 
-  if (isSorted) {
-    let low = 1, high = array.length;
-    while (low <= high) {
-      let mid = Math.floor(low + (high - low) / 2);
-      if (array[mid] === value) return mid;
-      else if (array[mid] < value) low = mid + 1;
-      else high = mid - 1;
+  if (isSorted === false || isSorted === undefined) {
+    for (let j = 0; j < array.length; j++) {
+      if (array[j] === value) return j;
     }
   }
 
-  for (let j = 0; j < array.length; j++) {
-    if (array[j] === value) return j;
+  if (isSorted) {
+    return binarySearch(array, value);
   }
+  
+ 
   return -1;
 };
 
@@ -533,7 +532,6 @@ _.throttle = (func, wait = 0, options = {leading: true}) => {
   };
   return caller;
 };
-
 
 ///////////////////////partial////////////////////////////////////////////
 
