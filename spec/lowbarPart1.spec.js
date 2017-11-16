@@ -688,7 +688,7 @@ describe('#extend', () => {
   });
 });
 
-/////////////////test defaults//////////////////////////////////////////
+//////////////////////////test defaults//////////////////////////////////////////
  
 describe('#defaults', () => {
   it('returns the first argument', () => {
@@ -729,4 +729,6 @@ describe('#defaults', () => {
     expect(_.defaults([null,0,1], [2,2],[3,3,3])).to.eql([null,0,1]);
   });
 });
-    
+
+
+

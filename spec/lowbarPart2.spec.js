@@ -551,6 +551,7 @@ describe('#where', () => {
 /////////////////////////test throttle//////////////////////////////////////
 
 describe('#throttle', () => {
+
   let sum = (acc, item) => {
     return acc + item;
   };
@@ -559,23 +560,26 @@ describe('#throttle', () => {
     this.clock = sinon.useFakeTimers();
     this.spy = sinon.spy(sum);
   });
+
   afterEach(() => {
     this.clock.restore();
   });
-  it('it is a function', () => {
+  it('is a function', () => {
     expect(_.throttle).to.be.a('function');
   });
+
   it('it returns a function', () => {
     expect(_.throttle()).to.be.a('function');
     expect(_.throttle(5)).to.be.a('function');
     expect(_.throttle('hello')).to.be.a('function');
   });
-  it('it returns a function that behaves like the function passed to it', () => {
+
+  it('returns function that behaves same as the function passed to it', () => {
     const throttleSum = _.throttle(sum);
     expect(throttleSum(1,2)).to.equal(3);
   });
-  it('it calls the passed function once every wait period', () => {
 
+  it('it calls the passed function once every wait period', () => {
     const throttleSpy = _.throttle(this.spy, 100);
     throttleSpy(1,2);
     throttleSpy(1,2);
@@ -587,7 +591,8 @@ describe('#throttle', () => {
     this.clock.tick(101);
     expect(this.spy.callCount).to.equal(2);
   });
-  it('it calls the function after the wait period if called multiple times during wait period if given option leading as true', () => {
+
+  it('calls function after the wait period when called multiple times if given option as true', () => {
     const throttleSpy = _.throttle(this.spy,100, {leading: true});
     throttleSpy(1,2);
     this.clock.tick(95);
@@ -595,28 +600,59 @@ describe('#throttle', () => {
     throttleSpy(1,2);
     throttleSpy(1,2);
     expect(this.spy.callCount).to.equal(1);
-    this.clock.tick(200);
+    this.clock.tick(120);
     expect(this.spy.callCount).to.equal(2);
   });
-  it('it calls the function once at the beginning of the next  wait period when called multiple times if given option leading as false', () => {
+
+  it('calls function once at the beginning of the next wait period when called multiple times if given option as false', () => {
     const throttleSpy = _.throttle(this.spy, 100, {leading: false});
-    throttleSpy(1,1);
-    throttleSpy(1,1);
-    throttleSpy(1,1);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
+    throttleSpy(1,2);
     expect(this.spy.callCount).to.equal(0);
     this.clock.tick(120);
     expect(this.spy.callCount).to.equal(1);
-  });
-  it('it calls the function once at the beginning of the next wait period when called multiple times if given option trailing as true', () => {
-    const throttleSpy = _.throttle(this.spy, 100, {leading: false});
-    throttleSpy(1,1);
-    throttleSpy(1,1);
-    throttleSpy(1,1);
-    expect(this.spy.callCount).to.equal(0);
-    this.clock.tick(120);
-    expect(this.spy.callCount).to.equal(1);
-    this.clock.restore();
   });
 });
 
+/////////////////////////test partial//////////////////////////////////////
+
+describe('#partial', () => {
+
+  let sum = (acc, item) => {
+    return acc + item;
+  };
+
+  it('is a function', () => {
+    expect(_.partial).to.be.a('function');
+  });
+
+  it('it returns a function', () => {
+    expect(_.partial()).to.be.a('function');
+  });
+
+  it('it returns a function that behaves like the function passed to it', () => {
+    const partialSum = _.partial(sum);
+    expect(partialSum(1,2)).to.equal(3);
+  });
+
+  it('it returns a function with the arguments partially filled in', () => {
+    const sum5 = _.partial(sum, 5);
+    const sum4 = _.partial(sum, _, 4);
+    const sum4And5 = _.partial(sum, 5, 4);
+    expect(sum5(4)).to.equal(9);
+    expect(sum4(5)).to.equal(9);
+    expect(sum4And5(9,9)).to.equal(9);
+  });
+  
+  it('it does not change the "this" value of the function', () => {
+    const context = {greeting: 'hello'};
+    let hello = function(str)  {
+      return `${this.greeting} ${str}`;
+    };
+    hello = hello.bind(context);
+    const partialHello = _.partial(hello);
+    expect(partialHello('olie')).to.equal('hello olie');
+  });
+});
 
