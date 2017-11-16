@@ -56,25 +56,20 @@ _.each = (list, fn) => {
 
 _.indexOf = (array, value, isSorted) => {
 
-  if (typeof (isSorted) === 'number') {
-    for (let i = isSorted; i < array.length; i++) {
+  const loop = (i = 0) => {
+    for (i; i < array.length; i++) {
       if (array[i] === value) return i;
     }
     return -1;
-  }
+  };
 
-  if (isSorted === false || isSorted === undefined) {
-    for (let j = 0; j < array.length; j++) {
-      if (array[j] === value) return j;
-    }
-  }
+  if (!Array.isArray(array) && typeof array !== 'string') return -1;
 
-  if (isSorted) {
-    return binarySearch(array, value);
-  }
+  if (isSorted === false || isSorted === undefined) return loop();
   
- 
-  return -1;
+  if (typeof (isSorted) === 'number') return loop (isSorted); 
+
+  if (isSorted) return binarySearch(array, value);
 };
 
 /////////////////////filter/////////////////////////////////////////////

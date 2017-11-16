@@ -174,7 +174,7 @@ describe('#indexOf', () => {
   });
 
   it('returns index of multi element array', () => {
-    expect(_.indexOf([2, 4, 6], 4)).to.equal(1);
+    expect(_.indexOf([2, 4, 6], 2)).to.equal(0);
   });
 
   it('returns index positon of element with start position given', () => {
