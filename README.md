@@ -2,11 +2,7 @@
 
 Lowbar
 
-Lowbar is my own replica of the JS library "_underscore", in order to understand how a JS library works I'll be reimplementing the functionality of every _underscore function.
-
-Core
-
-These are the core functions I will aim to get finished;
+Lowbar is my own replica of the JS library "_underscore", in order to understand how a JS library works I have reimplemented the functionality of the more commonly used _underscore functions below.
 
 identity
 first
@@ -32,13 +28,10 @@ sortBy
 zip
 sortedIndex 
 flatten
+intersection
 difference
 memoize
 delay
 where
 throttle
 partial
-
-
-
-
