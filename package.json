@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "dependencies": {},
   "scripts": {
-    "test": "mocha ./spec/lowbarPart1.spec",
+    "test": "mocha ./spec",
     "lint": "eslint ./",
     "posttest": "npm run lint",
     "precommit": "npm test"

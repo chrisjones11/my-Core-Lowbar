@@ -12,7 +12,7 @@ identity
 first
 last
 each
-indexOf     // refactor  
+indexOf     
 filter
 reject
 uniq
@@ -21,16 +21,16 @@ contains
 pluck
 reduce
 every
-some        // refactor
+some        
 extends
 defaults
 once
 negate
 shuffle
 invoke
-sortBy      // refactor
+sortBy     
 zip
-sortedIndex // refactor
+sortedIndex 
 flatten
 difference
 memoize
