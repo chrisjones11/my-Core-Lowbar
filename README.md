@@ -1,11 +1,11 @@
-# my-Core-Lowbar
+# My-Core-Lowbar
 
 Lowbar is my own replica of the JS library ["_underscore"](http://underscorejs.org/), in order to understand how a JS library works I have reimplemented the functionality of the more commonly used _underscore functions below.
 
 Descriptions and examples of how each function works can be found in the [underscore library](http://underscorejs.org/).
 
-- [identity](http://underscorejs.org/#identity)
-- [first](http://underscorejs.org/#first)
+* [identity](http://underscorejs.org/#identity)
+* [first](http://underscorejs.org/#first)
 * [last](http://underscorejs.org/#last)
 * [each](http://underscorejs.org/#each)
 * [indexOf](http://underscorejs.org/#indexOf)
@@ -35,14 +35,14 @@ Descriptions and examples of how each function works can be found in the [unders
 * [where](http://underscorejs.org/#where)
 * [throttle](http://underscorejs.org/#throttle)
 * [partial](http://underscorejs.org/#partial)
+___
 
 ## Getting Started
 
 To run the test suite for this project, the following steps should be taken.
-
 ___
 
-## Prerequisites
+#### Prerequisites
 
 This project requires nodejs and npm to be installed. 
 
@@ -56,3 +56,15 @@ npm -v
 ```
 
 If you don't have npm installed on your machine, instructions for installing npm can be found at [https://www.npmjs.com/get-npm].
+
+___
+
+#### Dependencies
+
+All dependencies are development dependencies, used in the test suite.
+
+* Mocha
+* Chai
+* Sinon 
+* husky
+* eslint
