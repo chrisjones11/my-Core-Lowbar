@@ -1,11 +1,9 @@
 # my-Core-Lowbar
 
-Lowbar
+## Lowbar is my own replica of the JS library "_underscore", in order to understand how a JS library works I have reimplemented the functionality of the more commonly used _underscore functions below.
 
-Lowbar is my own replica of the JS library "_underscore", in order to understand how a JS library works I have reimplemented the functionality of the more commonly used _underscore functions below.
-
-identity /n
-first \n
+- identity
+- first
 last
 each
 indexOf     
