@@ -41,7 +41,7 @@ ___
 
 To run the test suite for this project, the following steps should be taken.
 
-#### Prerequisites
+### Prerequisites
 
 This project requires nodejs, npm and git to be installed. 
 
@@ -75,7 +75,27 @@ If you don't have git installed on your machine, instructions for installing git
 
 ___
 
-#### Dependencies
+### Installation
+
+open terminal and navagate to the directory where you want the repository to be installed then run the following code:
+
+```
+git clone git@github.com:chrisjones11/my-Core-Lowbar.git
+```
+Then to install all dependences navigate inside the my-Core-Lowbar folder and run the following code:
+
+```
+npm install
+```
+Lastly to run the tests run the following code:
+
+```
+npm test
+```
+
+___
+
+### Dependencies
 
 All dependencies are development dependencies, used in the test suite.
 
@@ -84,3 +104,13 @@ All dependencies are development dependencies, used in the test suite.
 * Sinon 
 * husky
 * eslint
+
+___
+
+### Authors
+
+[Christopher Jones](https://github.com/chrisjones11) 
+
+### Acknowledgments
+
+Inspired by [Underscore js](http://underscorejs.org/) and completed as part of a project at [Northcoders](https://northcoders.com/)
