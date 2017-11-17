@@ -37,25 +37,41 @@ Descriptions and examples of how each function works can be found in the [unders
 * [partial](http://underscorejs.org/#partial)
 ___
 
-## Getting Started
+# Getting Started
 
 To run the test suite for this project, the following steps should be taken.
-___
 
 #### Prerequisites
 
-This project requires nodejs and npm to be installed. 
+This project requires nodejs, npm and git to be installed. 
 
-If nodejs is not installed on your machine, refer to the [node documentation](https://nodejs.org/en/download/package-manager/) for instructions. 
+##### Node    
+To confirm you have version 7 or aboveof nodejs installed on your machine,  Open your terminal then type and run the following code:
 
+```
+node -v
+```
 
-To confirm you have npm installed on your machine, run the following code:
+If nodejs is not installed on your machine or you version is less then 7, refer to the [node documentation](https://nodejs.org/en/download/package-manager/) for instructions. 
+
+##### Npm    
+To confirm you have npm installed on your machine, Open your terminal then type and run the following code:
 
 ```
 npm -v
 ```
 
 If you don't have npm installed on your machine, instructions for installing npm can be found at [https://www.npmjs.com/get-npm].
+
+##### Git
+
+To confirm you have git installed on your machine, Open your terminal then type and run the following code:
+
+```
+git --version
+```
+
+If you don't have git installed on your machine, instructions for installing git can be found at [https://git-scm.com/].
 
 ___
 
