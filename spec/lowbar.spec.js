@@ -328,6 +328,10 @@ describe('#map', () => {
   it('if it\'s string, it returns an array with the resulted values', () => {
     expect(_.map('hello', (num) => num)).to.eql(['h', 'e', 'l', 'l', 'o']);
   });
+
+  it('returns a mapped verion of the list with a function using context', () => {
+    expect(_.map([1,2,3], function(num) {return num * this;}, 5)).to.eql([5,10,15]);
+  });
 });
 
 ////////////////////////////////////////////////////////////////////////////

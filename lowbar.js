@@ -118,9 +118,10 @@ _.uniq = (input) => {
 ///////////////////////////////////////////////////////////////////////
 //////////////////// map///////////////////////////////////////////////
 
-_.map = (list, iteratee) => {
+_.map = (list, iteratee = _.identity,  context = this) => {
   let newArray = [];
   let nestedArray = [];
+  iteratee = iteratee.bind(context);
   if (typeof (list) === 'string') list = list.split('');
 
 
@@ -139,8 +140,6 @@ _.map = (list, iteratee) => {
       }
     });
   }
-
-
   return newArray;
 };
 
@@ -175,7 +174,7 @@ _.pluck = (input, value) => {
 ///////////////////////////////////////////////////////////////////////
 ///////////////// reduce///////////////////////////////////////////////
 
-_.reduce = (list, iteratee, acc) => {
+_.reduce = (list, iteratee  = _.identity, acc) => {
   let arr;
   let startIndex = 0;
   if (list instanceof Object) {
