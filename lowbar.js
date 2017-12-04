@@ -9,12 +9,16 @@ _.identity = arg => arg;
 ///////////////////////////////////////////////////////////////////////
 ///////////////////// values///////////////////////////////////////////
 
-_.values = (list) => {
-  if (!(list instanceof Object)) return [];
-  if (Array.isArray(list)) return list;
-  let newArray = [];
-  for (let key in list) newArray.push(list[key]);
-  return newArray;
+_.values = (obj) => {
+  if (typeof obj !== 'object' || obj === null) return [];
+  else {
+    const values = [];
+    if (Array.isArray(obj)) return obj;
+    for (let key in obj) {
+      values.push(obj[key]);
+    }
+    return values;
+  }
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -44,17 +48,13 @@ _.last = (list, n) => {
 ///////////////////////////////////////////////////////////////////////
 //////////////////// each//////////////////////////////////////////////
 
-_.each = (list, fn) => {
-  if (Array.isArray(list) || typeof (list) === 'string') {
-    for (var i = 0; i < list.length; i++) {
-      fn(list[i], i, list);
-    }
+_.each = (list, iteratee = _.identity , context = this) => {
+  let newList = _.values(list);
+  if (typeof list === 'string') newList = list;
+  for (let i = 0; i < newList.length; i++) {
+    iteratee.call(context, newList[i], i);
   }
-  else if (list instanceof Object) {
-    for (var prop in list) {
-      fn(list[prop], prop, list);
-    }
-  }
+  return list;
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -81,25 +81,25 @@ _.indexOf = (array, value, isSorted) => {
 ///////////////////////////////////////////////////////////////////////
 ////////////////// filter//////////////////////////////////////////////
 
-_.filter = (list, fn) => {
-  if (!fn) fn = _.identity;
-  var newArr = [];
-  _.each(list, function (value, indexorkey, list) {
-    if (fn(value, indexorkey, list)) newArr.push(value);
+_.filter = (list, predicate = _.identity , context = this) => {
+  let result = [];
+  if (!list || typeof list === 'number') return result;
+  _.each(list, function (item, index) {
+    if (predicate) {
+      if (predicate.call(context, item, index, list)) result.push(item);
+    } 
+    else result.push(item);
   });
-  return newArr;
+  return result;
 };
-
 ///////////////////////////////////////////////////////////////////////
 ////////////////// reject//////////////////////////////////////////////
 
-_.reject = (list, fn) => {
-  if (!fn) fn = _.identity;
-  var newArr = [];
-  _.each(list, function (value, indexorkey, list) {
-    if (!fn(value, indexorkey, list)) newArr.push(value);
-  });
-  return newArr;
+_.reject = (list, predicate, context = this) => {
+  if (predicate) {
+    return _.filter.call(null, list, _.negate(predicate), context);
+  }
+  return [];
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -252,13 +252,13 @@ _.some = (list, pred) => {
 ///////////////////////////////////////////////////////////////////////
 ///////////////// extends//////////////////////////////////////////////
 
-_.extend = function (obj)  {
-  _.each(arguments, (argObject) => {
-    _.each(argObject, (value, key) => {
-      obj[key] = value;
-    });
-  });
-  return obj;
+_.extend = (destination, ...sources) => {
+  return _.reduce(sources, (acc, item) => {
+    for (let key in item) {
+      acc[key] = item[key];
+    }
+    return acc;
+  }, destination);
 };
 
 ///////////////////////////////////////////////////////////////////////
