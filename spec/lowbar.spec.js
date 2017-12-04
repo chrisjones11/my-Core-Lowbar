@@ -414,7 +414,7 @@ describe('#pluck', () => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////test reduce//////////////////////////////////////
 
-describe.only('#reduce', () => {
+describe('#reduce', () => {
 
   let sum = (acc, item) => acc + item;
 
@@ -483,8 +483,8 @@ describe.only('#reduce', () => {
 
 describe('#every', () => {
 
-  let pred = (item) => {
-    if (item % 2 === 0) return true;
+  let pred = (num) => {
+    return num % 2 !== 1;
   };
 
   it('returns true if every element in the array, object or string pass the pred test', () => {
@@ -536,6 +536,15 @@ describe('#every', () => {
     let result = 5;
     _.each('hello', spy);
     expect(spy.callCount).to.equal(result);
+  });
+
+  it('can apply context to the predicate', () => {
+    function lessThanThis(item) {
+      return item < this;
+    }
+    expect(_.every([1,2,3,4,5], lessThanThis, 9)).to.equal(true);
+    expect(_.every([1,2,3,4,5], lessThanThis, 1)).to.equal(false);
+    expect(_.every({0:1,1:2,2:3,3:4,4:5}, lessThanThis, 1)).to.equal(false);
   });
 
 });

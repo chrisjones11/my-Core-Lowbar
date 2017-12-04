@@ -199,26 +199,39 @@ _.reduce = (list, iteratee  = _.identity, acc, context = this) => {
 ///////////////////////////////////////////////////////////////////////
 /////////////// every//////////////////////////////////////////////////
 
-_.every = (list, pred) => {
+// _.every = (list, pred, context = this) => {
+//   if (pred === undefined) return true;
+//   if (!(pred instanceof Function)) return false;
+//   let arr = [];
+//   if (typeof (list) === 'string') {
+//     for (let i = 0; i < list.length; i++) {
+//       if (pred(list[i]) !== true) {
+//         arr.push(list[i]);
+//       }
+//     }
+//   }
+//   if (list instanceof Object) {
+//     for (let prop in list) {
+//       if (pred(list[prop]) !== true) {
+//         arr.push(list[prop]);
+//       }
+//     }
+//   }
+//   if (arr.length >= 1) return false;
+//   else return true;
+// };
+
+
+_.every = (list, pred, context = this) => {
+  let flag = true, newList = list;
   if (pred === undefined) return true;
   if (!(pred instanceof Function)) return false;
-  let arr = [];
-  if (typeof (list) === 'string') {
-    for (let i = 0; i < list.length; i++) {
-      if (pred(list[i]) !== true) {
-        arr.push(list[i]);
-      }
-    }
+  if (typeof list === 'object') newList = _.values(list);
+  for (let i = 0; i < newList.length; i++) {
+    if (!flag) return flag;
+    flag = pred.call(context,newList[i]);
   }
-  if (list instanceof Object) {
-    for (let prop in list) {
-      if (pred(list[prop]) !== true) {
-        arr.push(list[prop]);
-      }
-    }
-  }
-  if (arr.length >= 1) return false;
-  else return true;
+  return flag;
 };
 
 ///////////////////////////////////////////////////////////////////////
