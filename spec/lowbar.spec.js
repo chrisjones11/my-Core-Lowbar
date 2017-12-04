@@ -19,10 +19,6 @@ describe('_', () => {
 
 describe('#identity', () => {
 
-  it('is a function', () => {
-    expect(_.identity).to.be.a('function');
-  });
-
   it('is returns a argument exacty how it is passed', () => {
     expect(_.identity('string')).to.equal('string');
     expect(_.identity(false)).to.equal(false);
@@ -36,9 +32,7 @@ describe('#identity', () => {
 ///////////////////////////test values//////////////////////////////////////
 
 describe('#values', () => {
-  it('is a function', () => {
-    expect(_.values).to.be.a('function');
-  });
+ 
   it('Return all of the values of the objects own properties.', () => {
     expect(_.values({ a: 1, b: 2, c: 3 })).to.eql([1, 2, 3]);
     expect(_.values({ 1: 'a', 2: 'b' })).to.eql(['a', 'b']);
@@ -56,9 +50,6 @@ describe('#values', () => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////test first///////////////////////////////////////
 describe('#first', () => {
-  it('is a function', () => {
-    expect(_.first).to.be.a('function');
-  });
 
   it('Return first item of the array||string if second argument is undefined.', () => {
     expect(_.first([1, 2, 3, 4, 5])).to.eql([1]);
@@ -89,9 +80,6 @@ describe('#first', () => {
 ///////////////////////////test last////////////////////////////////////////
 
 describe('#last', () => {
-  it('is a function', () => {
-    expect(_.last).to.be.a('function');
-  });
 
   it('if first arg is array or string and second arg is undefined return last element.', () => {
     expect(_.last([1, 2, 3, 4, 5])).to.eql([5]);
@@ -185,9 +173,6 @@ describe('#each', () => {
 ///////////////////////////test indexOf/////////////////////////////////////
 
 describe('#indexOf', () => {
-  it('is a function', () => {
-    expect(_.indexOf).to.be.a('function');
-  });
 
   it('returns index of single element array', () => {
     expect(_.indexOf([1], 1)).to.equal(0);
@@ -261,10 +246,7 @@ describe('#filter', () => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////test reject//////////////////////////////////////
 describe('#reject', () => {
-  it('is a function', () => {
-    expect(_.reject).to.be.a('function');
-  });
-
+ 
   it('returns an empty array if array or object is not passed in', () => {
     expect(_.filter(12345)).to.eql([]);
     expect(_.filter(true)).to.eql([]);
@@ -303,10 +285,7 @@ describe('#reject', () => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////test uniq////////////////////////////////////////
 describe('#uniq', () => {
-  it('is a function', () => {
-    expect(_.uniq).to.be.a('function');
-  });
-
+  
   it('returns an empty array for invalid arguments', () => {
     expect(_.uniq({})).to.eql([]);
     expect(_.uniq(4)).to.eql([]);
@@ -327,9 +306,6 @@ describe('#uniq', () => {
 ///////////////////////////test map/////////////////////////////////////////
 
 describe('#map', () => {
-  it('is a function', () => {
-    expect(_.map).to.be.a('function');
-  });
 
   it('return an empty array if the argument is not an array', () => {
     expect(_.map(5)).to.eql([]);
@@ -358,10 +334,6 @@ describe('#map', () => {
 ///////////////////////////test contains////////////////////////////////////
 
 describe('#contains', () => {
-
-  it('is a function', () => {
-    expect(_.contains).to.be.a('function');
-  });
 
   it('is return a boolean', () => {
     expect(_.contains([1, 2], 2)).to.be.a('boolean');
@@ -407,10 +379,6 @@ describe('#contains', () => {
 
 describe('#pluck', () => {
 
-  it('is a function', () => {
-    expect(_.pluck).to.be.a('function');
-  });
-
   it('is returns empty array if first argument is a number or boolean', () => {
     expect(_.pluck(true, 'a')).to.eql([]);
     expect(_.pluck(59, 'a')).to.eql([]);
@@ -445,10 +413,6 @@ describe('#pluck', () => {
 describe('#reduce', () => {
 
   let sum = (acc, item) => acc + item;
-
-  it('is a function', () => {
-    expect(_.reduce).to.be.a('function');
-  });
 
   it('returns correct reduced value on an array', () => {
     expect(_.reduce([1, 2, 3], sum, 0)).to.equal(6);
@@ -521,10 +485,6 @@ describe('#every', () => {
     if (item % 2 === 0) return true;
   };
 
-  it('is a function', () => {
-    expect(_.every);
-  });
-
   it('returns true if every element in the array, object or string pass the pred test', () => {
     expect(_.every([2, 4, 6], pred)).to.be.true;
     expect(_.every('246', pred)).to.be.true;
@@ -586,10 +546,6 @@ describe('#some', () => {
   let pred = (item) => {
     if (item % 2 === 0) return true;
   };
-
-  it('is a function', () => {
-    expect(_.some);
-  });
 
   it('returns true if some element in the array, object or string pass the pred test', () => {
     expect(_.some([1, 5, 6], pred)).to.be.true;
@@ -655,9 +611,6 @@ describe('#some', () => {
 ///////////////////////////test extends/////////////////////////////////////
 
 describe('#extend', () => {
-  it('is a function', () => {
-    expect(_.extend).to.be.a('function');
-  });
 
   it('returns the object that was passed in', () => {
     let obj = { a: 1, b: 2 };
@@ -722,6 +675,7 @@ describe('#extend', () => {
 //////////////////////////test defaults/////////////////////////////////////
  
 describe('#defaults', () => {
+
   it('returns the first argument', () => {
 
     expect(_.defaults(9876, { number: 5432 })).to.equal(9876);
@@ -765,9 +719,7 @@ describe('#defaults', () => {
 ///////////////////////////test once////////////////////////////////////////
 
 describe('#once', () => {
-  it('should be a function', () => {
-    expect(_.once).to.be.a('function');
-  });
+
   it('should only allow the function to be called once', () => {
     let Spy = sinon.spy();
     let mySpyOnce = _.once(Spy);
@@ -797,9 +749,7 @@ describe('#once', () => {
 
 describe( '#negate', () => {
   'use strict';
-  it('it is a function', () => {
-    expect(_.negate).to.be.a('function');
-  });
+
   it('returns the function itself if not passed a function as an argument', () => {
     expect(_.negate()).to.be.a('function');
   });
@@ -822,9 +772,6 @@ describe( '#negate', () => {
 ///////////////////////////test shuffle/////////////////////////////////////
 
 describe('#shuffle', () => {
-  it('is a function', () => {
-    expect(_.shuffle).to.be.a('function');
-  });
 
   it('returns an array', () => {
     let arr = [1, 2, 3, 4, 5];
@@ -873,9 +820,6 @@ describe('#shuffle', () => {
 /////////////////////////test invoke////////////////////////////////////////
 
 describe('_.invoke', () => {
-  it('is a function', () => {
-    expect(_.invoke).to.be.a('function');
-  });
 
   it('returns undefined if no method is given', () => {
     expect(_.invoke([1, 2, 3])).to.be.undefined;
@@ -923,9 +867,6 @@ describe('_.invoke', () => {
 //////////////////////////test sortBy///////////////////////////////////////
 
 describe('#sortBy', () => {
-  it('it is a function', () => {
-    expect(_.sortBy).to.be.a('function');
-  });
   
   it('returns an empty array when not given valid list', () => {
     expect(_.sortBy()).to.eql([]);
@@ -977,10 +918,6 @@ describe('#sortBy', () => {
 
 describe('#zip', () => {
 
-  it('should be a function', () => {
-    expect(_.zip).to.be.a('function');
-  });
-
   it('should return an empty array when given an invalid data type', () => {
     expect(_.zip(true)).to.eql([]);
     expect(_.zip(1234)).to.eql([]);
@@ -1007,10 +944,6 @@ describe('#zip', () => {
 ///////////////////////////test sortedIndex/////////////////////////////////
 
 describe('#sortedIndex', () => {
-
-  it('is a function', () => {
-    expect(_.sortedIndex).to.be.a('function');
-  });
 
   it('returns 0 if given an invalid data type', () => {
     expect(_.sortedIndex(1345, 2)).to.equal(0);
@@ -1061,10 +994,7 @@ describe('#sortedIndex', () => {
 ///////////////////////////test flatten/////////////////////////////////////
 
 describe('#flatten', () => {
-  it('is a function', () => {
-    expect(_.flatten).to.be.a('function');
-  });
-
+ 
   it('returns an array from 2 nested arrays 1 level in', () => {
     expect(_.flatten([[1, 2], [3, 4, 5]])).to.eql([1, 2, 3, 4, 5]);
   });
@@ -1099,9 +1029,6 @@ describe('#flatten', () => {
 ///////////////////////////test intersection////////////////////////////////
 
 describe('#intersection', () => {
-  it('is a function', () => {
-    expect(_.intersection).to.be.a('function');
-  });
 
   it('should return all items common to each array given',  () => {
     expect(_.intersection([1, 2, 3], [1, 2, 4], [1, 2])).to.eql([1, 2]);
@@ -1139,10 +1066,6 @@ describe('#intersection', () => {
  
 describe('#difference', () => {
 
-  it('should be a function', () => {
-    expect(_.difference).to.be.a('function');
-  });
-
   it('should return a blank array when given an invalid data type', () => {
     expect(_.difference(123)).to.eql([]);
     expect(_.difference(true)).to.eql([]);
@@ -1177,9 +1100,6 @@ describe('#difference', () => {
 /////////////////////////test memoize///////////////////////////////////////
 
 describe('#memoize',() => {
-  it('is a function', () => {
-    expect(_.memoize).to.be.a('function');
-  });
 
   it('returns a function', () => {
     expect(_.memoize(() => {})).to.be.a('function');
@@ -1234,10 +1154,6 @@ describe('#memoize',() => {
 
 describe('#delay', () => {
 
-  it('is a function', () =>  {
-    expect(_.delay).to.be.a('function');
-  });
-  
   let clock;
   before( () => { clock = sinon.useFakeTimers(); });
   after( () => { clock.restore(); });
@@ -1286,10 +1202,7 @@ describe('#delay', () => {
 /////////////////////////test where/////////////////////////////////////////
 
 describe('#where', () => {
-  it('it is a function', () => {
-    expect(_.where).to.be.a('function');
-  });
-
+ 
   it('returns an array from the array containing the properties passed', () => {
     const list = [
       { name: 'chris', gender: 'male'},    
@@ -1335,9 +1248,6 @@ describe('#throttle', () => {
 
   afterEach(() => {
     this.clock.restore();
-  });
-  it('is a function', () => {
-    expect(_.throttle).to.be.a('function');
   });
 
   it('it returns a function', () => {
@@ -1395,10 +1305,6 @@ describe('#partial', () => {
   let sum = (acc, item) => {
     return acc + item;
   };
-
-  it('is a function', () => {
-    expect(_.partial).to.be.a('function');
-  });
 
   it('it returns a function', () => {
     expect(_.partial()).to.be.a('function');
