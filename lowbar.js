@@ -105,15 +105,23 @@ _.reject = (list, predicate, context = this) => {
 ///////////////////////////////////////////////////////////////////////
 /////////////////// uniq///////////////////////////////////////////////
 
-_.uniq = (input) => {
-  if (!Array.isArray(input) && typeof (input) !== 'string') return [];
-  let uniqueArray = [];
-  for (var i = 0; i < input.length; i++) {
-    if (!uniqueArray.includes(input[i]))
-      uniqueArray.push(input[i]);
+
+_.uniq = (array, isSorted = false, iteratee = _.identity) => {
+  if (typeof isSorted === 'function') {
+    iteratee = isSorted;
+    isSorted = false;
   }
-  return uniqueArray;
+  const result = [],
+    checkIteratee = [];
+  _.each.call(null, array, function (item) {
+    if (_.indexOf.call(checkIteratee, this, iteratee(item), isSorted) === -1) {
+      this.push(iteratee(item));
+      result.push(item);
+    }
+  }, checkIteratee);
+  return result;
 };
+
 
 ///////////////////////////////////////////////////////////////////////
 //////////////////// map///////////////////////////////////////////////

@@ -289,6 +289,15 @@ describe('#uniq', () => {
   it('returns an empty array for invalid arguments', () => {
     expect(_.uniq({})).to.eql([]);
     expect(_.uniq(4)).to.eql([]);
+    expect(_.uniq()).to.eql([]);
+    expect(_.uniq(554545)).to.eql([]);
+    expect(_.uniq(true)).to.eql([]);
+  });
+  
+  it('returns an array of 1 value when given a list of the same the value repeated', () => {
+    expect(_.uniq('aaaaaaaaa')).to.eql(['a']);
+    expect(_.uniq(['a','a','a'])).to.eql(['a']);
+    expect(_.uniq([1,1,1,1,1,1])).to.eql([1]);
   });
 
   it('returns an array with only 1st occurence of each value when passed an array', () => {
@@ -299,6 +308,11 @@ describe('#uniq', () => {
 
   it('returns an array with only 1st occurence of each value passed a string', () => {
     expect(_.uniq('hello')).to.eql(['h', 'e', 'l', 'o']);
+  });
+
+  it('returns an array of unique values based on iteratee argument' , () => {
+    expect(_.uniq([2.1, 2.3, 2.4, 3.1, 3.2], false, Math.floor )).to.eql([2.1, 3.1]);
+    expect(_.uniq([2.1, 2.3, 2.4, 3.1, 3.2],  Math.floor )).to.eql([2.1, 3.1]);
   });
 });
 
@@ -552,7 +566,7 @@ describe('#every', () => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////test some////////////////////////////////////////
 
-describe.only('#some', () => {
+describe('#some', () => {
 
   let pred = (item) => {
     if (item % 2 === 0) return true;
