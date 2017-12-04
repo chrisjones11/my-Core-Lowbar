@@ -214,11 +214,11 @@ _.every = (list, pred, context = this) => {
 ///////////////////////////////////////////////////////////////////////
 ///////////////// some/////////////////////////////////////////////////
 
-_.some = (list, pred) => {
+_.some = (list, pred, context = this) => {
   if (pred === undefined && list.length > 0 || pred === undefined && Object.keys(list).length > 0) return true;
   if (pred === undefined) return false;
-
   if (!(pred instanceof Function)) return false;
+  pred = pred.bind(context);
   let arr = [];
   if (typeof (list) === 'string') {
     for (let i = 0; i < list.length; i++) {

@@ -552,7 +552,7 @@ describe('#every', () => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////test some////////////////////////////////////////
 
-describe('#some', () => {
+describe.only('#some', () => {
 
   let pred = (item) => {
     if (item % 2 === 0) return true;
@@ -614,6 +614,16 @@ describe('#some', () => {
     let result = 5;
     _.each('hello', spy);
     expect(spy.callCount).to.equal(result);
+  });
+
+  it('can apply context to the function', () => {
+    function lessThanThis(item) {
+      return item < this;
+    }
+    expect(_.some([1,2,3,4,5], lessThanThis, -1)).to.equal(false);
+    expect(_.some([1,2,3,4,5], lessThanThis, 2)).to.equal(true);
+    expect(_.some({a:1, b:2}, lessThanThis, 2)).to.equal(true);
+    expect(_.some({a:1, b:2}, lessThanThis, 1)).to.equal(false);
   });
 
 });
