@@ -174,7 +174,7 @@ _.pluck = (input, value) => {
 ///////////////////////////////////////////////////////////////////////
 ///////////////// reduce///////////////////////////////////////////////
 
-_.reduce = (list, iteratee  = _.identity, acc) => {
+_.reduce = (list, iteratee  = _.identity, acc, context = this) => {
   let arr;
   let startIndex = 0;
   if (list instanceof Object) {
@@ -191,7 +191,7 @@ _.reduce = (list, iteratee  = _.identity, acc) => {
   }
 
   for (let i = startIndex; i < arr.length; i++) {
-    acc = iteratee(acc, arr[i], i, list);
+    acc = iteratee.call(context, acc, arr[i], i, list);
   }
   return acc;
 };

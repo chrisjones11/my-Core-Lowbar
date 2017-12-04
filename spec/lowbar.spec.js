@@ -414,7 +414,7 @@ describe('#pluck', () => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////test reduce//////////////////////////////////////
 
-describe('#reduce', () => {
+describe.only('#reduce', () => {
 
   let sum = (acc, item) => acc + item;
 
@@ -461,14 +461,6 @@ describe('#reduce', () => {
     expect(_.reduce([], sum)).to.equal(undefined);
   });
 
-  it('when first arg is an Array return true if spy.firstCall.calledWithExactly is equal to expected', () => {
-    const spy = sinon.spy();
-    let result = true;
-    _.reduce([1, 2, 3, 4, 5], spy);
-    expect(spy.firstCall.calledWithExactly(1, 2, 1, [1, 2, 3, 4, 5])).to.equal(result);
-
-  });
-
   it('when first arg is an Array return true if spy callCount is equal to expected', () => {
     const spy = sinon.spy();
     let result = 5;
@@ -476,6 +468,12 @@ describe('#reduce', () => {
     expect(spy.callCount).to.equal(result);
   });
 
+  it('can use context in the iteratee', () => {
+    expect(_.reduce('abcdefg', function(acc, letter) {
+      if (!this[letter]) acc.push(letter);
+      return acc;
+    }, [], {a: true, b: true, c: true, d: true})).to.eql(['e', 'f' , 'g',]);
+  });
 
 
 });
