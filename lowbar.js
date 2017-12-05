@@ -208,15 +208,18 @@ _.reduce = (list, iteratee  = _.identity, acc, context = this) => {
 /////////////// every//////////////////////////////////////////////////
 
 _.every = (list, pred, context = this) => {
-  let flag = true, newList = list;
+  let newList = list;
+  let resultArr = [];
   if (pred === undefined) return true;
   if (!(pred instanceof Function)) return false;
+  pred = pred.bind(context);
   if (typeof list === 'object') newList = _.values(list);
   for (let i = 0; i < newList.length; i++) {
-    if (!flag) return flag;
-    flag = pred.call(context,newList[i]);
+    if (pred(newList[i]) != true) return false;
+    else resultArr.push(newList[i]);
   }
-  return flag;
+  if (resultArr.length === newList.length) return true;
+  else return false;
 };
 
 
