@@ -566,10 +566,10 @@ describe('#every', () => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////test some////////////////////////////////////////
 
-describe('#some', () => {
+describe.only('#some', () => {
 
-  let pred = (item) => {
-    if (item % 2 === 0) return true;
+  let pred = (num) => {
+    return num % 2 !== 1;
   };
 
   it('returns true if some element in the array, object or string pass the pred test', () => {
@@ -582,15 +582,6 @@ describe('#some', () => {
     expect(_.some([1, 5, 7], pred)).to.be.false;
     expect(_.some('135', pred)).to.be.false;
     expect(_.some({ a: 1, b: 5, c: 7 }, pred)).to.be.false;
-  });
-
-  it('returns false if second arg is not a function', () => {
-    expect(_.some([2, 4, 6], { a: 2, b: 4, c: 5 })).to.be.false;
-    expect(_.some([2, 4, 6], [2, 4, 6])).to.be.false;
-    expect(_.some([2, 4, 6], 'hello')).to.be.false;
-    expect(_.some([2, 4, 6], true)).to.be.false;
-    expect(_.some([2, 4, 6], false)).to.be.false;
-    expect(_.some([2, 4, 6], -1)).to.be.false;
   });
 
   it('returns true if second arg is undefined and first argument is a string,array or object with a length of aleast 1', () => {

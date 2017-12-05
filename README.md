@@ -43,18 +43,20 @@ To run the test suite for this project, the following steps should be taken.
 
 ### Prerequisites
 
-This project requires nodejs, npm and git to be installed. 
+This project requires Node.js, npm and git to be installed. 
 
 ##### Node    
-To confirm you have version 7 or aboveof nodejs installed on your machine,  Open your terminal then type and run the following code:
+
+To confirm you have version 7 or aboveof Node.js installed on your machine,  Open your terminal then type and run the following code:
 
 ```
 node -v
 ```
 
-If nodejs is not installed on your machine or you version is less then 7, refer to the [node documentation](https://nodejs.org/en/download/package-manager/) for instructions. 
+If Node.js is not installed on your machine or you version is less then 7, refer to the [node documentation](https://nodejs.org/en/download/package-manager/) for instructions. 
 
-##### Npm    
+##### Npm  
+  
 To confirm you have npm installed on your machine, Open your terminal then type and run the following code:
 
 ```

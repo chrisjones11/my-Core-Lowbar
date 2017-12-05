@@ -219,31 +219,18 @@ _.every = (list, pred, context = this) => {
   return flag;
 };
 
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////// some/////////////////////////////////////////////////
 
-_.some = (list, pred, context = this) => {
-  if (pred === undefined && list.length > 0 || pred === undefined && Object.keys(list).length > 0) return true;
-  if (pred === undefined) return false;
-  if (!(pred instanceof Function)) return false;
-  pred = pred.bind(context);
-  let arr = [];
-  if (typeof (list) === 'string') {
-    for (let i = 0; i < list.length; i++) {
-      if (pred(list[i]) === true) {
-        arr.push(list[i]);
-      }
-    }
+_.some = (list, predicate = _.identity, context = this) => {
+  let newList = list;
+  predicate = predicate.bind(context);
+  if (typeof list !== 'string' ) newList = _.values(list);
+  for (let i = 0; i < newList.length; i++) {
+    if (predicate(newList[i]) != false) return true;
   }
-  if (list instanceof Object) {
-    for (let prop in list) {
-      if (pred(list[prop]) === true) {
-        arr.push(list[prop]);
-      }
-    }
-  }
-  if (arr.length >= 1) return true;
-  else return false;
+  return false;
 };
 
 ///////////////////////////////////////////////////////////////////////
