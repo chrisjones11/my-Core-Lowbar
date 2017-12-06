@@ -52,8 +52,8 @@ describe('#values', () => {
 describe('#first', () => {
 
   it('Return first item of the array||string if second argument is undefined.', () => {
-    expect(_.first([1, 2, 3, 4, 5])).to.eql([1]);
-    expect(_.first('hello')).to.eql(['h']);
+    expect(_.first([1, 2, 3, 4, 5])).to.eql(1);
+    expect(_.first('hello')).to.eql('h');
   });
 
   it('Return array of string or array sliced up to second argument .', () => {
@@ -82,8 +82,8 @@ describe('#first', () => {
 describe('#last', () => {
 
   it('if first arg is array or string and second arg is undefined return last element.', () => {
-    expect(_.last([1, 2, 3, 4, 5])).to.eql([5]);
-    expect(_.last('hello')).to.eql(['o']);
+    expect(_.last([1, 2, 3, 4, 5])).to.eql(5);
+    expect(_.last('hello')).to.eql('o');
   });
 
   it('if first arg is string or array and second arg equates to a number return that number of elements from end.', () => {
@@ -174,6 +174,12 @@ describe('#each', () => {
 
 describe('#indexOf', () => {
 
+  it('should return -1 if an object, number or boolean is given as the first argument', () => {
+    expect(_.indexOf({ a: 1, b: 2 }, 1)).to.equal(-1);
+    expect(_.indexOf(12345, 3)).to.equal(-1);
+    expect(_.indexOf(true, true)).to.equal(-1);
+  });
+
   it('returns index of single element array', () => {
     expect(_.indexOf([1], 1)).to.equal(0);
   });
@@ -182,23 +188,86 @@ describe('#indexOf', () => {
     expect(_.indexOf([2, 4, 6], 5)).to.equal(-1);
   });
 
-  it('returns index of multi element array', () => {
+  it('should return -1 if no arguments are passed', () => {
+    expect(_.indexOf()).to.equal(-1);
+  });
+
+  it('returns the first index position of multi element array', () => {
     expect(_.indexOf([2, 4, 6], 2)).to.equal(0);
   });
 
-  it('returns index positon of element with start position given', () => {
+  it('returns the first index position of element after start position given', () => {
     expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8], 6, 2)).to.equal(5);
     expect(_.indexOf([8, 2, 3, 4, 5, 6, 7, 8], 8, 2)).to.equal(7);
   });
 
-  it('returns index positon of element with multiple of that element in an unsorted array with start position given', () => {
+  it('returns the first index position of element with multiple of that element in an unsorted array after start position given', () => {
     expect(_.indexOf([3, 4, 3, 3, 5, 6, 6, 8], 4, 4)).to.equal(-1);
     expect(_.indexOf([3, 4, 3, 3, 5, 6, 4, 8], 4, 4)).to.eql(6);
   });
 
-  it('returns index position of element through a binary search if array is sorted', () => {
+  it('returns the first index position of multi element array of strings', () => {
+    expect(_.indexOf(['chris', 'emily', 'rhys', ], 'emily')).to.equal(1);
+    expect(_.indexOf(['chris', 'emily', 'rhys', ], 'rhys')).to.equal(2);
+  });
+
+  it('returns the first index position of multi element array of strings after start position given', () => {
+    expect(_.indexOf(['chris', 'emily', 'rhys', ], 'chris', 1)).to.equal(-1);
+    expect(_.indexOf(['chris', 'emily', 'rhys', ], 'rhys', 1)).to.equal(2);
+    expect(_.indexOf(['chris', 'emily', 'rhys', 'chris' ], 'chris', 1)).to.equal(3);
+  });
+
+  it('returns the first index position a letter in a string', () => {
+    expect(_.indexOf('hello', 'h')).to.equal(0);
+    expect(_.indexOf('hello', 'l')).to.equal(2);
+  });
+
+  it('returns the first index position of string with start position given', () => {
+    expect(_.indexOf('hello', 'o', 2)).to.equal(4);
+    expect(_.indexOf('hellohello', 'h', 2)).to.equal(5);
+  });
+
+  it('returns -1 if trying to match a whole string', () => {
+    expect(_.indexOf('hello', 'hello')).to.equal(-1);
+  });
+  
+  it('will not match nested arrays or objects within the array', () => {
+    expect(_.indexOf([[1, 2, 3], [3, 4, 5]], [1, 2, 3])).to.equal(-1);
+    expect(_.indexOf([{ a: 1 }, { b: 2 }], { a: 1 })).to.equal(-1);
+  });
+
+  it('returns the first index position of element using a binary search if array is sorted', () => {
     expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8], 2, true)).to.equal(1);
     expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8], 4, true)).to.equal(3);
+  });
+
+  it('returns -1 if value not present checked using a binary search if array is sorted', () => {
+    expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8], 9, true)).to.equal(-1);
+    expect(_.indexOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 11, true)).to.equal(-1);
+  });
+
+  it('binary search should not return the correct answer if the array is not sorted', () => {
+    expect(_.indexOf([10, 9, 7, 8, 3, 6, 5, 4, 3, 1, 2], 9, true)).to.equal(-1);
+    expect(_.indexOf([10, 9, 7, 8, 3, 6, 5, 4, 3, 1, 2], 10, true)).to.equal(-1);
+  });
+
+  it('returns the first index position using a binary search for alphabetically ordered array of strings', () => {
+    expect(_.indexOf(['a', 'b', 'c', 'd', 'e'], 'b', true)).to.equal(1);
+    expect(_.indexOf(['a', 'c', 'b', 'd', 'e'], 'c', true)).to.equal(-1);
+    expect(_.indexOf(['chris', 'emily', 'rhys' ], 'chris', true)).to.equal(0);
+    expect(_.indexOf(['chris', 'emily', 'rhys' ], 'emily', true)).to.equal(1);
+    expect(_.indexOf(['rhys', 'emily', 'chris'], 'chris', true)).to.equal(-1);
+  });
+
+  it('returns the first index position using a binary search for alphabetically ordered strings', () => {
+    expect(_.indexOf('abcde', 'a', true)).to.equal(0);
+    expect(_.indexOf('hello', 'l', true)).to.equal(2);
+    expect(_.indexOf('edcba', 'a', true)).to.equal(-1);
+  });
+
+  it('returns -1 if the start position given is higher than the array or string length', () => {
+    expect(_.indexOf([1, 2, 3, 4], 1, 5)).to.equal(-1);
+    expect(_.indexOf('hello', 'h', 6)).to.equal(-1);
   });
 });
 

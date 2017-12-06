@@ -10,6 +10,9 @@ const  binarySearch = (arr, value) => {
 
     else low = mid + 1;
   }
+
+  if (low > high) return -1;
+
 };
 
 const binaryIndex = (list, value) => {
