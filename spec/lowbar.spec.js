@@ -1,6 +1,7 @@
 const path = require('path');
 const expect = require('chai').expect;
 const sinon = require('sinon');
+const {add1, addh, double, divide, dotrue, equalToThis, isEven, lessThanThis, oneOverThis, popContext, sum} = require('../utils.js');
 
 const _ = require(path.join(__dirname, '..', './lowbar.js'));
 
@@ -136,34 +137,8 @@ describe('#each', () => {
     expect(_.each({})).to.eql({});
   });
 
-  it('calls a function the same number of times as the length of the list', () => {
-    let countArray = 0;
-    const incrementCountArray = () => {
-      countArray++;
-    };
-    _.each([1,2,3,4], incrementCountArray);
-    expect(countArray).to.equal(4);
-
-    let countStr = 0;
-    const incrementCountStr = () => {
-      countStr++;
-    };
-    _.each('1234', incrementCountStr);
-    expect(countStr).to.equal(4);
-
-    let countObj = 0;
-    const incrementCountObj = () => {
-      countObj++;
-    };
-    _.each({1:1, 2:2, 3:3, 4:4}, incrementCountObj);
-    expect(countObj).to.equal(4);
-  });
-
   it('applies context to the iteratee function if given context argument', () => {
     let arr = ['a','b','c','d'];
-    const popContext = function() {
-      this.pop();
-    };
     _.each([1,2,3], popContext, arr);
     expect(arr.length).to.equal(1);
   });
@@ -292,22 +267,16 @@ describe('#filter', () => {
   });
 
   it('returns a new array with all items divisible by 2 when passed and object or an array', () => {
-    const divide = (num) => {
-      if (num % 2 === 0) return true;
-    };
+    
     expect(_.filter([1, 2, 3, 4, 5, 6, 7, 8], divide)).to.eql([2, 4, 6, 8]);
     expect(_.filter({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, divide)).to.eql([2, 4]);
   });
 
   it('returns a new array with all items that pass test', () => {
-    const dotrue = () => true;
     expect(_.filter([1, 2, 3, 4, 5, 6, 7, 8], dotrue)).to.eql([1, 2, 3, 4, 5, 6, 7, 8]);
   });
 
   it('can apply context to the predicate function', () => {
-    function lessThanThis(item) {
-      return item < this;
-    }
     expect(_.filter([1,2,3,4,5,6,7,8,9,10], lessThanThis, 5)).to.eql([1,2,3,4]);
   });
 });
@@ -325,28 +294,17 @@ describe('#reject', () => {
   });
 
   it('returns a new array with all items not divisible by 2 when passed and object or an array', () => {
-    const divide = (num) => {
-      if (num % 2 === 0) return true;
-    };
     expect(_.reject([1, 2, 3, 4, 5, 6, 7, 8], divide)).to.eql([1, 3, 5, 7]);
     expect(_.reject({ 'a': 1, 'b': 2, 'c': 3, 'd': 4 }, divide)).to.eql([1, 3]);
   });
 
   it('returns a new array with all items that dont pass test', () => {
-    const dotrue = () => true;
     expect(_.reject([1, 2, 3, 4, 5, 6, 7, 8], dotrue)).to.eql([]);
   });
 
   it('can apply context to the function as the third argument', () => {
     let context = ['a', 'b', 'c', 'd', 'e'];
-    function lessThanThis(item) {
-      return item < this;
-    }
     expect(_.reject([2,4,5,6,7,8,9], lessThanThis, 5)).to.eql([5,6,7,8,9]);
-
-    function equalToThis (item, i) {
-      return item === this[i];
-    }
     expect(_.reject('adcfe', equalToThis, context)).to.eql(['d', 'f']);
   });
 });
@@ -512,9 +470,6 @@ describe('#reduce', () => {
   });
 
   it('returns correct reduced value on an string', () => {
-    let addh = (acc, item) => {
-      return acc + 'h' + item;
-    };
     expect(_.reduce('abcd', addh)).to.equal('ahbhchd');
   });
 
@@ -527,10 +482,6 @@ describe('#reduce', () => {
   });
 
   it('works if an array is passed as a accumulator ', () => {
-    let add1 = (acc, item) => {
-      acc.push(item + 1);
-      return acc;
-    };
     expect(_.reduce([1, 2, 3, 4], add1, [])).to.eql([2, 3, 4, 5]);
   });
 
@@ -566,20 +517,16 @@ describe('#reduce', () => {
 
 describe('#every', () => {
 
-  let pred = (num) => {
-    return num % 2 !== 1;
-  };
-
   it('returns true if every element in the array, object or string pass the pred test', () => {
-    expect(_.every([2, 4, 6], pred)).to.be.true;
-    expect(_.every('246', pred)).to.be.true;
-    expect(_.every({ a: 2, b: 4, c: 6 }, pred)).to.be.true;
+    expect(_.every([2, 4, 6], isEven)).to.be.true;
+    expect(_.every('246', isEven)).to.be.true;
+    expect(_.every({ a: 2, b: 4, c: 6 }, isEven)).to.be.true;
   });
 
   it('returns false if any element in the array, object or string fail the pred test', () => {
-    expect(_.every([2, 5, 6], pred)).to.be.false;
-    expect(_.every('256', pred)).to.be.false;
-    expect(_.every({ a: 2, b: 5, c: 6 }, pred)).to.be.false;
+    expect(_.every([2, 5, 6], isEven)).to.be.false;
+    expect(_.every('256', isEven)).to.be.false;
+    expect(_.every({ a: 2, b: 5, c: 6 }, isEven)).to.be.false;
   });
 
   it('returns true if any second arg is undefined', () => {
@@ -622,9 +569,6 @@ describe('#every', () => {
   });
 
   it('can apply context to the predicate', () => {
-    function lessThanThis(item) {
-      return item < this;
-    }
     expect(_.every([1,2,3,4,5], lessThanThis, 9)).to.equal(true);
     expect(_.every([1,2,3,4,5], lessThanThis, 1)).to.equal(false);
     expect(_.every({0:1,1:2,2:3,3:4,4:5}, lessThanThis, 1)).to.equal(false);
@@ -637,20 +581,16 @@ describe('#every', () => {
 
 describe('#some', () => {
 
-  let pred = (num) => {
-    return num % 2 !== 1;
-  };
-
   it('returns true if some element in the array, object or string pass the pred test', () => {
-    expect(_.some([1, 5, 6], pred)).to.be.true;
-    expect(_.some('136', pred)).to.be.true;
-    expect(_.some({ a: 1, b: 3, c: 6 }, pred)).to.be.true;
+    expect(_.some([1, 5, 6], isEven)).to.be.true;
+    expect(_.some('136', isEven)).to.be.true;
+    expect(_.some({ a: 1, b: 3, c: 6 }, isEven)).to.be.true;
   });
 
   it('returns false if all elements in the array, object or string fail the pred test', () => {
-    expect(_.some([1, 5, 7], pred)).to.be.false;
-    expect(_.some('135', pred)).to.be.false;
-    expect(_.some({ a: 1, b: 5, c: 7 }, pred)).to.be.false;
+    expect(_.some([1, 5, 7], isEven)).to.be.false;
+    expect(_.some('135', isEven)).to.be.false;
+    expect(_.some({ a: 1, b: 5, c: 7 }, isEven)).to.be.false;
   });
 
   it('returns true if second arg is undefined and first argument is a string,array or object with a length of aleast 1', () => {
@@ -691,9 +631,6 @@ describe('#some', () => {
   });
 
   it('can apply context to the function', () => {
-    function lessThanThis(item) {
-      return item < this;
-    }
     expect(_.some([1,2,3,4,5], lessThanThis, -1)).to.equal(false);
     expect(_.some([1,2,3,4,5], lessThanThis, 2)).to.equal(true);
     expect(_.some({a:1, b:2}, lessThanThis, 2)).to.equal(true);
@@ -853,10 +790,6 @@ describe( '#negate', () => {
     expect(isFalsy(false)).to.be.true;
     expect(isFalsy(true)).to.be.false;
 
-    let isEven = (num) => {
-      return num % 2 !== 1;
-    };
-
     let isOdd = _.negate(isEven);
     expect(isOdd(1)).to.be.true;
   });
@@ -999,9 +932,6 @@ describe('#sortBy', () => {
 
   it('it returns an array of sorted elements based on an iteratee using context', () => {
     const Nums = [1,2,3,4,5,6];
-    const oneOverThis = function(num ) {
-      return this / num;
-    };
     const expectedNums = [6,5,4,3,2,1];
     expect(_.sortBy(Nums, oneOverThis, 1)).to.eql(expectedNums);
   });
@@ -1202,14 +1132,12 @@ describe('#memoize',() => {
   });
 
   it('should return the same value as original function', () => {
-    const dble = n => 2 * n;
-    const memDble = _.memoize(dble);
+    const memDble = _.memoize(double);
     expect(memDble(1)).to.equal(memDble(1));
   });
 
   it('should call the function only once for multiple calls with the same argument', () => {
-    const dble = n => 2 * n;
-    const spy = sinon.spy(dble);
+    const spy = sinon.spy(double);
     const memDble = _.memoize(spy);
     memDble(1);
     memDble(1);
@@ -1218,7 +1146,6 @@ describe('#memoize',() => {
   });
 
   it('should call the function multiple times with different arguments', () => {
-    const double = n => 2 * n;
     const spy = sinon.spy(double);
     const memDble = _.memoize(spy);
     memDble(1);
@@ -1228,16 +1155,14 @@ describe('#memoize',() => {
   });
 
   it('has a cache property which stores the cache object', () => {
-    const dble = n => 2 * n;
-    const memDble = _.memoize(dble);
+    const memDble = _.memoize(double);
     memDble(2);
     expect(memDble.cache).to.eql({ 2: 4 });
   });
 
   it('has a hash as a second argument to work out the hash key for storing', () => {
-    const iteratee = n => n * 2;
     const hash = n => `num${n}`;
-    const test = _.memoize(iteratee, hash);
+    const test = _.memoize(double, hash);
     test(2);
     expect(test.cache).to.eql({ num2: 4 });
   });
@@ -1332,10 +1257,6 @@ describe('#where', () => {
 
 describe('#throttle', () => {
 
-  let sum = (acc, item) => {
-    return acc + item;
-  };
-
   beforeEach(() => {
     this.clock = sinon.useFakeTimers();
     this.spy = sinon.spy(sum);
@@ -1397,10 +1318,6 @@ describe('#throttle', () => {
 
 describe('#partial', () => {
 
-  let sum = (acc, item) => {
-    return acc + item;
-  };
-
   it('it returns a function', () => {
     expect(_.partial()).to.be.a('function');
   });
@@ -1421,9 +1338,11 @@ describe('#partial', () => {
   
   it('it does not change the "this" value of the function', () => {
     const context = {greeting: 'hello'};
+
     let hello = function(str)  {
       return `${this.greeting} ${str}`;
     };
+
     hello = hello.bind(context);
     const partialHello = _.partial(hello);
     expect(partialHello('olie')).to.equal('hello olie');

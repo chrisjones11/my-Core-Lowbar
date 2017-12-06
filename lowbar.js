@@ -1,4 +1,4 @@
-const {binarySearch, binaryIndex} = require ('./utils');
+const {binarySearch, binaryIndex} = require ('./binaryFunctions');
 const _ = {};
 
 ///////////////////////////////////////////////////////////////////////
