@@ -368,20 +368,18 @@ _.zip = function () {
 _.sortedIndex = (list, value, iteratee, context = this) => {
   
   if ( typeof list !== 'string' && !Array.isArray(list)|| value === undefined ) return 0;
+ 
+  if (typeof iteratee === 'string') {
+    return binaryIndex(_.map(list, item => item[iteratee]), value[iteratee]);
+  }
+
+  if (typeof iteratee === 'function') {
+    iteratee = iteratee.bind(context);
+    return binaryIndex(_.map(list, item => iteratee(item)), iteratee(value));
+  }
   
-  return typeof iteratee === 'string' ?  
-  
-    binaryIndex(_.map(list, item => item[iteratee]), value[iteratee]) :
-  
-    typeof iteratee === 'function' ? 
-    
-      (iteratee = iteratee.bind(context),
-  
-        binaryIndex(_.map(list, item => iteratee(item)), iteratee(value))) :
-  
-      binaryIndex(list, value);
+  else return binaryIndex(list, value);
 };
-  
 
 ///////////////////////////////////////////////////////////////////////
 /////////////////// flatten////////////////////////////////////////////
