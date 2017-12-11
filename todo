@@ -1,5 +1,0 @@
-# Lowbar
-
-
-* Nested ternary for `sortedIndex` is slightly difficult to read but its your call if you want to keep it, as long as you can argue the case :)
-
